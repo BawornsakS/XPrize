@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: neo_platformctrl_mecanum
+Description: Description of neo_platformctrl_mecanum
+Version: 0.1.2
+Cflags: -I/home/xprize/Bally_Workspace/install/include
+Libs: -L/home/xprize/Bally_Workspace/install/lib -lneo_platformctrl_mecanum
+Requires: std_msgs tf nav_msgs sensor_msgs

@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: neo_watchdogs
+Description: Description of neo_watchdogs
+Version: 0.1.2
+Cflags: 
+Libs: -L/home/xprize/Bally_Workspace/install/lib 
+Requires: neo_relayboard roscpp move_base_msgs neo_msgs

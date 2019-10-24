@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: teleop_keyboard_omni3
+Description: Description of teleop_keyboard_omni3
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/xprize/Bally_Workspace/install/lib 
+Requires: 

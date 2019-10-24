@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/devel
+
+Name: open_base
+Description: Description of open_base
+Version: 0.0.0
+Cflags: -I/home/xprize/Bally_Workspace/devel/include -I/usr/include/eigen3 -I/opt/ros/melodic/share/orocos_kdl/cmake/../../../include
+Libs: -L/home/xprize/Bally_Workspace/devel/lib -lopen_base /opt/ros/melodic/lib/liborocos-kdl.so.1.4.0
+Requires: roscpp sensor_msgs message_runtime kdl_parser

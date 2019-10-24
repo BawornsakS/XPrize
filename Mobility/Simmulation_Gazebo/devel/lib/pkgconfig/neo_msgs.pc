@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/devel
+
+Name: neo_msgs
+Description: Description of neo_msgs
+Version: 0.1.2
+Cflags: -I/home/xprize/Bally_Workspace/devel/include
+Libs: -L/home/xprize/Bally_Workspace/devel/lib 
+Requires: message_runtime

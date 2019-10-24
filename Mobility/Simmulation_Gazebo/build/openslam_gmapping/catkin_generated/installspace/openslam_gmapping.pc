@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: openslam_gmapping
+Description: Description of openslam_gmapping
+Version: 0.2.1
+Cflags: -I/home/xprize/Bally_Workspace/install/include
+Libs: -L/home/xprize/Bally_Workspace/install/lib -lutils -lsensor_base -lsensor_odometry -lsensor_range -llog -lconfigfile -lscanmatcher -lgridfastslam
+Requires: 

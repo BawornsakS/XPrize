@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libneo_platformctrl_mecanum.so -o /home/xprize/Bally_Workspace/devel/lib/libneo_platformctrl_mecanum.so CMakeFiles/neo_platformctrl_mecanum.dir/common/src/Mecanum4WKinematics.cpp.o 

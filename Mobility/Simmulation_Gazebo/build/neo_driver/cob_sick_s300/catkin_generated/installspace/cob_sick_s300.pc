@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: cob_sick_s300
+Description: Description of cob_sick_s300
+Version: 0.6.2
+Cflags: 
+Libs: -L/home/xprize/Bally_Workspace/install/lib 
+Requires: roscpp sensor_msgs diagnostic_msgs
