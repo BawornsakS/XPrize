@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/devel
+
+Name: rplidar_ros
+Description: Description of rplidar_ros
+Version: 1.10.0
+Cflags: 
+Libs: -L/home/xprize/Bally_Workspace/devel/lib 
+Requires: 

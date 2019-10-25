@@ -1,0 +1,8 @@
+prefix=/home/xprize/Bally_Workspace/install
+
+Name: neo_base_mpo_500
+Description: Description of neo_base_mpo_500
+Version: 0.1.2
+Cflags: 
+Libs: -L/home/xprize/Bally_Workspace/install/lib 
+Requires: 

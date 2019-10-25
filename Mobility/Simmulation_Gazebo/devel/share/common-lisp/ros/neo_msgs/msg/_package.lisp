@@ -1,0 +1,27 @@
+(cl:defpackage neo_msgs-msg
+  (:use )
+  (:export
+   "<EMERGENCYSTOPSTATE>"
+   "EMERGENCYSTOPSTATE"
+   "<GYROBOARD>"
+   "GYROBOARD"
+   "<IOANALOGIN>"
+   "IOANALOGIN"
+   "<IOOUT>"
+   "IOOUT"
+   "<IRSENSORS>"
+   "IRSENSORS"
+   "<KEYPAD>"
+   "KEYPAD"
+   "<LCDOUTPUT>"
+   "LCDOUTPUT"
+   "<POWERBOARDSTATE>"
+   "POWERBOARDSTATE"
+   "<POWERSTATE>"
+   "POWERSTATE"
+   "<RADARBOARD>"
+   "RADARBOARD"
+   "<USBOARD>"
+   "USBOARD"
+  ))
+

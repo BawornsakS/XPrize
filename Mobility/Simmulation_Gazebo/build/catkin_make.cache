@@ -1,0 +1,2 @@
+OpenBase/ROS/open_base:cob_scan_unifier:my_bot:neo_driver/cob_sick_s300:neo_driver/neo_base_mp_400:neo_driver/neo_base_mp_500:neo_driver/neo_base_mp_700:neo_driver/neo_base_mpo_500:neo_driver/neo_base_mpo_700:neo_driver/neo_msgs:neo_driver/neo_platformctrl_diff:neo_driver/neo_platformctrl_mecanum:neo_simulation:openslam_gmapping:rplidar_ros:summit_description:teleop_keyboard_omni3
+-DCATKIN_DEVEL_PREFIX=/home/xprize/Bally_Workspace/devel -DCMAKE_INSTALL_PREFIX=/home/xprize/Bally_Workspace/install -G Unix Makefiles
