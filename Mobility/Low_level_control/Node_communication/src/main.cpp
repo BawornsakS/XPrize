@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX);
-DigitalIn sw(USER_BUTTON);
+
 PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
@@ -16,17 +16,12 @@ DigitalOut BackLF(D9);
 DigitalOut BackLB(D8);
 DigitalOut BackRF(D7);
 DigitalOut BackRB(D6);
-char buffyon[3];
-char buffyx[5];
-char buffyy[5];
 
 #define PI 3.141592
 float FL=0;
 float FR=0;
 float BL=0;
 float BR=0;
-float Vx;
-float Vy;
 
   void GO(float Vx,float Vy)
   {
@@ -34,7 +29,7 @@ float Vy;
     FR =(Vx + Vy)/200.0; 
     BL =(Vx + Vy)/200.0; 
     BR =(Vx - Vy)/200.0;
-    pc.printf("%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
+    pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
     ///FL***
     if (FL>0){
@@ -102,30 +97,14 @@ float Vy;
     }
 
   }
-  
 int main()
 {
-  char command[8];
-  Vx=0;
-  Vy=0;
-  FLWheel.write(0);
-  FRWheel.write(0);
-  BLWheel.write(0);
-  BRWheel.write(0);
-  FrontLF = 0;
-  FrontLB = 0;
-  FrontRF = 0;
-  FrontRB = 0;
-  BackLF = 0;
-  BackLB = 0;
-  BackRF = 0;
-  BackRB = 0;
-
   MPU9250 imu;
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   pc.printf("I AM 0x%x\n\r", whoami);
   if (whoami == 0x73) // WHO_AM_I should always be 0x73
   {
+    pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
     pc.printf("MPU9250 is online...\n\r");
     wait(1);
     imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
@@ -134,6 +113,7 @@ int main()
     wait(2);
     imu.initMPU9250();
     imu.initAK8963(imu.magCalibration);
+    wait(1);
   }
   else
   {
@@ -146,16 +126,41 @@ int main()
   imu.getAres(); // Get accelerometer sensitivity
   imu.getGres(); // Get gyro sensitivity
   imu.getMres(); // Get magnetometer sensitivity
+  FLWheel.write(0);
+  FRWheel.write(0);
+  BLWheel.write(0);
+  BRWheel.write(0);
+  FrontLF = 0;
+  FrontLB = 0;
+  FrontRF = 0;
+  FrontRB = 0;
+  BackLF = 0;
+  BackLB = 0;
+  BackRF = 0;
+  BackRB = 0;
+  GO(0.00,0.00);
+
   while (1)
   {
+    char command[13];
     imu.readimu();
     pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
+
     if (pc.readable()) {
-      pc.gets(command, 8);
-      for (int i=0; i<8; i++) {
-        pc.printf("%x ", command[i]);
+      pc.gets(command, 13);
+    float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+    float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
+    if (command[0] == '-'){
+        Vx=-Vx;
       }
-    pc.printf("\n");
+    if (command[4] == '-'){
+        Vy=-Vy;
+      }
+    if (command[8] == '-'){
+        Wz=-Wz;
+      }
+    GO(Vx,Vy);
     }
   }
 }
