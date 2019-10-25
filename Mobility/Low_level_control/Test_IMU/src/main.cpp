@@ -7,9 +7,6 @@ Serial pc(USBTX, USBRX);
 int main()
 {
   MPU9250 imu;
-  imu.initMPU9250();
-  imu.config(pc, true);
-  imu.selfTest(pc, true);
 
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   pc.printf("I AM 0x%x\n\r", whoami);
@@ -90,11 +87,8 @@ int main()
     // imu.roll *= 180.0f / PI;
 
 
-    float roll = atan(imu.ax/sqrt((imu.ay*imu.ay)+(imu.az*imu.az)));
-    float pitch = atan(imu.ay/sqrt((imu.ax*imu.ax)+(imu.az*imu.az)));
-    pc.printf("\t Roll Pitch : %f %f", roll,pitch);
-
-
-    //pc.printf("\tYaw, Pitch, Roll: %f %f %f", imu.yaw, imu.pitch, imu.roll);
+    // float roll = atan(imu.ax/sqrt((imu.ay*imu.ay)+(imu.az*imu.az)));
+    // float pitch = atan(imu.ay/sqrt((imu.ax*imu.ax)+(imu.az*imu.az)));
+    //pc.printf("\t Roll Pitch : %f %f", roll,pitch);
   }
 }
