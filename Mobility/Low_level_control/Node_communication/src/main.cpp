@@ -18,20 +18,17 @@ DigitalOut BackRF(D7);
 DigitalOut BackRB(D6);
 
 #define PI 3.141592
-float FL=0;
-float FR=0;
-float BL=0;
-float BR=0;
-
-  void GO(float Vx,float Vy)
-  {
-    FL =(Vx - Vy)/200.0; 
-    FR =(Vx + Vy)/200.0; 
-    BL =(Vx + Vy)/200.0; 
-    BR =(Vx - Vy)/200.0;
+void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
+  float FL=0;
+  float FR=0;
+  float BL=0;
+  float BR=0;
+    FL =(Vx - Vy + (Wz*(-0.15)))/200.0; 
+    FR =(Vx + Vy + (Wz*(0.15)))/200.0; 
+    BL =(Vx + Vy + (Wz*(-0.15)))/200.0; 
+    BR =(Vx - Vy + (Wz*(0.15)))/200.0;
     pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
-    ///FL***
     if (FL>0){
       FrontLF=1;
       FrontLB=0;
@@ -47,7 +44,7 @@ float BR=0;
       FrontLB=0;
       FLWheel.write(0);
     }
-    ///FR***
+
     if (FR>0){
       FrontRF=1;
       FrontRB=0;
@@ -63,7 +60,7 @@ float BR=0;
       FrontLB=0;
       FRWheel.write(0);
     }
-    ///BL***
+
     if (BL>0){
       BackLF=1;
       BackLB=0;
@@ -79,7 +76,7 @@ float BR=0;
       BackLB=0;
       BLWheel.write(0);
     }
-    ///BR***
+
     if (BR>0){
       BackRF=1;
       BackRB=0;
@@ -97,8 +94,10 @@ float BR=0;
     }
 
   }
+
 int main()
 {
+  GO(0.00,0.00,0.00);
   MPU9250 imu;
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   pc.printf("I AM 0x%x\n\r", whoami);
@@ -122,10 +121,10 @@ int main()
 
     while (1); // Loop forever if communication doesn't happen
   }
-
   imu.getAres(); // Get accelerometer sensitivity
   imu.getGres(); // Get gyro sensitivity
   imu.getMres(); // Get magnetometer sensitivity
+
   FLWheel.write(0);
   FRWheel.write(0);
   BLWheel.write(0);
@@ -138,7 +137,7 @@ int main()
   BackLB = 0;
   BackRF = 0;
   BackRB = 0;
-  GO(0.00,0.00);
+
 
   while (1)
   {
@@ -160,7 +159,7 @@ int main()
     if (command[8] == '-'){
         Wz=-Wz;
       }
-    GO(Vx,Vy);
+    GO(Vx,Vy,Wz);
     }
   }
 }
