@@ -10,16 +10,12 @@ PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
 PwmOut BRWheel(D2);
-// Front left wheel
 DigitalOut FrontLF(D13); // front left forword
 DigitalOut FrontLB(D12); // front left backword
-// Front right wheel
 DigitalOut FrontRF(D11);
 DigitalOut FrontRB(D10);
-// Back left wheel
 DigitalOut BackLF(D9);
 DigitalOut BackLB(D8);
-// Back right wheel
 DigitalOut BackRF(D7);
 DigitalOut BackRB(D6);
 char buffyon[3];
