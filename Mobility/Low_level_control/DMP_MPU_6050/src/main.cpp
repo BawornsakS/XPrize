@@ -176,7 +176,7 @@ I2C i2c(I2C_SDA, I2C_SCL);
 // (115200 chosen because it is required for Teapot Demo output, but it's
 // really up to you depending on your project)
 //Host PC Baudrate (Virtual Com Port on USB)
-    #define D_BAUDRATE            115200
+    #define D_BAUDRATE            9600
  
 // Host PC Communication channels
     Serial pc(USBTX, USBRX); // tx, rx
