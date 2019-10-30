@@ -59,6 +59,7 @@ int main()
   int t2;
   int dt = 20;
   int ds = 500;
+  int prev_rpm;
   // ----------- main loop ----------
   while(1)
   {
@@ -86,17 +87,32 @@ int main()
       if(ang2>ang1)
       {
         W = (ang2-ang1);
+        W = (W*60*1000)/(16383*dt);
+        W = hexadecimal_to_decimal(W);
+        pc.printf("%X : ",W);
+        pc.printf(" + : ");
+        pc.printf("%X : ",ang1);
+        pc.printf("%X\n",ang2);
       }
+      else if (ang1 > ang2)
+      {
+        W = (ang1 - ang2);
+        W = (W*60*1000)/(16383*dt);
+        W = hexadecimal_to_decimal(W);
+        pc.printf("%X : ",W);
+        pc.printf(" -  :");
+        pc.printf("%X : ",ang1);
+        pc.printf("%X\n",ang2);
+      }
+      
+      // else if(ang1 > ang2)
+      // {
+      //   W = -(ang1-ang2);
+      // }
       //else if(ang1>ang2)
       //{
       //  W = (ang2+16383-ang1);
       //}
-      
-      W = (W*60*1000)/(16383*dt);
-      W = hexadecimal_to_decimal(W);
-      pc.printf("%X : ",W);
-      pc.printf("%X : ",ang1);
-      pc.printf("%X\n",ang2);
       ang1 = 0;
       ang2 = 0;
       t.reset();
