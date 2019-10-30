@@ -40,7 +40,7 @@ int encoder()
   cs = 0;
   w = spi.write(0x0000);
   cs = 1;
-  w = w & 0x3FFF;
+  w = w & 0x3FFC;
   //w=w/2;
   //pc.printf("%X\n", x);
   return w;
@@ -57,7 +57,7 @@ int main()
   cs = 1;
   t.start();
   int t2;
-  int dt = 20;
+  int dt = 10;
   int ds = 500;
   int prev_rpm;
   // ----------- main loop ----------
