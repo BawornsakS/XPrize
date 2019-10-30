@@ -40,7 +40,7 @@ int encoder()
   cs = 0;
   w = spi.write(0x0000);
   cs = 1;
-  w = w & 0x3FFC;
+  w = w & 0x3FFF;
   //w=w/2;
   //pc.printf("%X\n", x);
   return w;
@@ -57,9 +57,8 @@ int main()
   cs = 1;
   t.start();
   int t2;
-  int dt = 10;
+  int dt = 100;
   int ds = 500;
-  int prev_rpm;
   // ----------- main loop ----------
   while(1)
   {
@@ -90,7 +89,7 @@ int main()
         W = (W*60*1000)/(16383*dt);
         W = hexadecimal_to_decimal(W);
         pc.printf("%X : ",W);
-        pc.printf(" + : ");
+        pc.printf(" + ");
         pc.printf("%X : ",ang1);
         pc.printf("%X\n",ang2);
       }
@@ -100,7 +99,7 @@ int main()
         W = (W*60*1000)/(16383*dt);
         W = hexadecimal_to_decimal(W);
         pc.printf("%X : ",W);
-        pc.printf(" -  :");
+        pc.printf(" - ");
         pc.printf("%X : ",ang1);
         pc.printf("%X\n",ang2);
       }
