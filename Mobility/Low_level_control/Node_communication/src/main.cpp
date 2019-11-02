@@ -23,10 +23,10 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
   float FR=0;
   float BL=0;
   float BR=0;
-    FL =(Vx - Vy + (Wz*(-0.15)))/200.0; 
-    FR =(Vx + Vy + (Wz*(0.15)))/200.0; 
-    BL =(Vx + Vy + (Wz*(-0.15)))/200.0; 
-    BR =(Vx - Vy + (Wz*(0.15)))/200.0;
+    FL =(Vx - Vy + (Wz*(-0.28)))/200.0; 
+    FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
+    BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
+    BR =(Vx - Vy + (Wz*(0.28)))/200.0;
     pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
     if (FL>0){
