@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX);
-
+Serial bluetooth(PA_11, PA_12);
 PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
@@ -17,7 +17,10 @@ DigitalOut BackLB(D8);
 DigitalOut BackRF(D7);
 DigitalOut BackRB(D6);
 
+MPU9250 imu;
+Timer timer_slow;
 #define PI 3.141592
+
 void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
   float FL=0;
   float FR=0;
@@ -94,10 +97,15 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
     }
   }
 
+void task_sent() {
+  imu.readimu();
+  //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
+  pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
+}
+
 int main()
 {
   GO(0.00,0.00,0.00);
-  MPU9250 imu;
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   pc.printf("I AM 0x%x\n\r", whoami);
   if (whoami == 0x73) // WHO_AM_I should always be 0x73
@@ -136,17 +144,13 @@ int main()
   BackLB = 0;
   BackRF = 0;
   BackRB = 0;
-
-
+  timer_slow.start();
+  char command[13];
   while (1)
   {
-    char command[13];
-    imu.readimu();
-    //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-    pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-
-    if (pc.readable()) {
-      pc.gets(command, 13);
+  timer_slow.reset();
+  if (pc.readable()) {
+    pc.gets(command, 13);
     float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
     float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
     float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
@@ -161,5 +165,29 @@ int main()
       }
     GO(Vx,Vy,Wz);
     }
+
+  if (bluetooth.readable()) {
+    bluetooth.gets(command, 13);
+    float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+    float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
+    if (command[0] == '-'){
+        Vx=-Vx;
+      }
+    if (command[4] == '-'){
+        Vy=-Vy;
+      }
+    if (command[8] == '-'){
+        Wz=-Wz;
+      }
+    GO(Vx,Vy,Wz);
+    }
+    // double eiei_output1 = timer_slow.read();
+    // pc.printf("time: %f \t\t\t",eiei_output1);
+    // timer_slow.reset();
+    // task_sent();
+    // double eiei_output2 = timer_slow.read();
+    // timer_slow.reset();
+    // pc.printf("\t\t\t time: %f\n",eiei_output2);
   }
 }

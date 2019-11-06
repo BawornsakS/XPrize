@@ -9,6 +9,9 @@
 
 #include "mbed.h"
 
+#define I2C_SDA I2C_SDA
+#define I2C_SCL I2C_SCL
+
 class I2Cdev {
     private:
         I2C i2c;
