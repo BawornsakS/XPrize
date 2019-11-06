@@ -22,6 +22,7 @@ int encoder()
 {
 
   static int w;
+  
   cs = 1;
   cs = 0;
   spi.write(0xFFFF);
@@ -38,7 +39,6 @@ int encoder()
 }
 int encoder2()
 {
-
   static int w2;
   cs2 = 1;
   cs2 = 0;
@@ -47,11 +47,45 @@ int encoder2()
   wait_us(1);
   cs2 = 0;
   w2 = spi.write(0x0000);
-  cs = 1;
+  cs2 = 1;
   w2 = w2 & 0x3FFF;
   //w=w/2;
   //pc.printf("%X\n", x);
   return w2;
+
+}
+int encoder3()
+{
+  static int w3;
+  cs3 = 1;
+  cs3 = 0;
+  spi.write(0xFFFF);
+  cs3 = 1;
+  wait_us(1);
+  cs3 = 0;
+  w3 = spi.write(0x0000);
+  cs3 = 1;
+  w3 = w2 & 0x3FFF;
+  //w=w/2;
+  //pc.printf("%X\n", x);
+  return w3;
+
+}
+int encoder4()
+{
+  static int w4;
+  cs4 = 1;
+  cs4 = 0;
+  spi.write(0xFFFF);
+  cs4 = 1;
+  wait_us(1);
+  cs4 = 0;
+  w4 = spi.write(0x0000);
+  cs4 = 1;
+  w4 = w4 & 0x3FFF;
+  //w=w/2;
+  //pc.printf("%X\n", x);
+  return w4;
 
 }
 int main() 
@@ -61,8 +95,10 @@ int main()
 
   int ang12 = 0;
   int ang22 = 0;
+
   int W;
   int W2;
+  
   int time;
   spi.format(16,1);
   spi.frequency(1000000);
@@ -82,7 +118,6 @@ int main()
       ang1 = encoder();
       ang12 = encoder2();
     }
-
     if(time == dt)
     {
       ang2 = encoder();
