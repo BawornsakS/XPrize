@@ -98,14 +98,14 @@ int main()
 
   int W;
   int W2;
-  
+
   int time;
   spi.format(16,1);
   spi.frequency(1000000);
   cs = 1;
   t.start();
   int t2;
-  int dt = 20;
+  int dt = 100;
   int ds = 500;
   // ----------- main loop ----------
   while(1)
