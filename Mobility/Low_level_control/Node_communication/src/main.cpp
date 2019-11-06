@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX);
-Serial bluetooth(PA_11, PA_12);
+Serial bluetooth(PA_11, PA_12 ,115200);
 PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
@@ -106,31 +106,32 @@ void task_sent() {
 int main()
 {
   GO(0.00,0.00,0.00);
-  uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
-  pc.printf("I AM 0x%x\n\r", whoami);
-  if (whoami == 0x73) // WHO_AM_I should always be 0x73
-  {
-    pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
-    pc.printf("MPU9250 is online...\n\r");
-    wait(1);
-    imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
-    imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
-    imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
-    wait(2);
-    imu.initMPU9250();
-    imu.initAK8963(imu.magCalibration);
-    wait(1);
-  }
-  else
-  {
-    pc.printf("Could not connect to MPU9250: \n\r");
-    pc.printf("%#x \n", whoami);
+  
+  // uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
+  // pc.printf("I AM 0x%x\n\r", whoami);
+  // if (whoami == 0x73) // WHO_AM_I should always be 0x73
+  // {
+  //   pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
+  //   pc.printf("MPU9250 is online...\n\r");
+  //   wait(1);
+  //   imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
+  //   imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
+  //   imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
+  //   wait(2);
+  //   imu.initMPU9250();
+  //   imu.initAK8963(imu.magCalibration);
+  //   wait(1);
+  // }
+  // else
+  // {
+  //   pc.printf("Could not connect to MPU9250: \n\r");
+  //   pc.printf("%#x \n", whoami);
 
-    while (1); // Loop forever if communication doesn't happen
-  }
-  imu.getAres(); // Get accelerometer sensitivity
-  imu.getGres(); // Get gyro sensitivity
-  imu.getMres(); // Get magnetometer sensitivity
+  //   while (1); // Loop forever if communication doesn't happen
+  // }
+  // imu.getAres(); // Get accelerometer sensitivity
+  // imu.getGres(); // Get gyro sensitivity
+  // imu.getMres(); // Get magnetometer sensitivity
 
   FLWheel.write(0);
   FRWheel.write(0);
@@ -146,6 +147,7 @@ int main()
   BackRB = 0;
   timer_slow.start();
   char command[13];
+  pc.printf("Hello World");
   while (1)
   {
   timer_slow.reset();
