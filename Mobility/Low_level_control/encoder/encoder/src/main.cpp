@@ -6,7 +6,9 @@ SPI spi(D11, D12, D13); // mosi, miso, sclk
 // D11 ต่อกับขา MOSI ของ Encoder
 // D12 ต่อกับขา MISO ของ Encoder
 // D13 ต่อกับขา CLK ของ Encoder
-
+DifitalOut cs4(D7;)
+DifitalOut cs3(D8;)
+DifitalOut cs2(D9;)
 DigitalOut cs(D10);
 
 // D10 ต่อกับขา CS ของ Encoder
