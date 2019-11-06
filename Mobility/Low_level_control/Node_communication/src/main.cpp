@@ -2,8 +2,8 @@
 #include "MPU9250.h"
 #include <math.h>
 
-Serial pc(USBTX, USBRX);
-Serial bluetooth(PA_11, PA_12 ,115200);
+Serial pc(USBTX, USBRX,400000);
+Serial bluetooth(PA_11, PA_12 ,400000);
 PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
@@ -19,6 +19,7 @@ DigitalOut BackRB(D6);
 
 MPU9250 imu;
 Timer timer_slow;
+Timer IMU_timer;
 #define PI 3.141592
 
 void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
@@ -30,7 +31,7 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
     FR =(Vx + Vy + (Wz*(0.15)))/200.0; 
     BL =(Vx + Vy + (Wz*(-0.15)))/200.0; 
     BR =(Vx - Vy + (Wz*(0.15)))/200.0;
-    pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
+    // pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
     if (FL>0){
       FrontLF=1;
@@ -107,31 +108,31 @@ int main()
 {
   GO(0.00,0.00,0.00);
   
-  // uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
-  // pc.printf("I AM 0x%x\n\r", whoami);
-  // if (whoami == 0x73) // WHO_AM_I should always be 0x73
-  // {
-  //   pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
-  //   pc.printf("MPU9250 is online...\n\r");
-  //   wait(1);
-  //   imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
-  //   imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
-  //   imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
-  //   wait(2);
-  //   imu.initMPU9250();
-  //   imu.initAK8963(imu.magCalibration);
-  //   wait(1);
-  // }
-  // else
-  // {
-  //   pc.printf("Could not connect to MPU9250: \n\r");
-  //   pc.printf("%#x \n", whoami);
+  uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
+  pc.printf("I AM 0x%x\n\r", whoami);
+  if (whoami == 0x73) // WHO_AM_I should always be 0x73
+  {
+    pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
+    pc.printf("MPU9250 is online...\n\r");
+    wait(1);
+    imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
+    imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
+    imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
+    wait(2);
+    imu.initMPU9250();
+    imu.initAK8963(imu.magCalibration);
+    wait(1);
+  }
+  else
+  {
+    pc.printf("Could not connect to MPU9250: \n\r");
+    pc.printf("%#x \n", whoami);
 
-  //   while (1); // Loop forever if communication doesn't happen
-  // }
-  // imu.getAres(); // Get accelerometer sensitivity
-  // imu.getGres(); // Get gyro sensitivity
-  // imu.getMres(); // Get magnetometer sensitivity
+    while (1); // Loop forever if communication doesn't happen
+  }
+  imu.getAres(); // Get accelerometer sensitivity
+  imu.getGres(); // Get gyro sensitivity
+  imu.getMres(); // Get magnetometer sensitivity
 
   FLWheel.write(0);
   FRWheel.write(0);
@@ -146,10 +147,13 @@ int main()
   BackRF = 0;
   BackRB = 0;
   timer_slow.start();
+  IMU_timer.start();
+
   char command[13];
   pc.printf("Hello World");
   while (1)
   {
+  wait_ns(5);
   timer_slow.reset();
   if (pc.readable()) {
     pc.gets(command, 13);
@@ -184,12 +188,15 @@ int main()
       }
     GO(Vx,Vy,Wz);
     }
-    // double eiei_output1 = timer_slow.read();
-    // pc.printf("time: %f \t\t\t",eiei_output1);
-    // timer_slow.reset();
-    // task_sent();
-    // double eiei_output2 = timer_slow.read();
-    // timer_slow.reset();
-    // pc.printf("\t\t\t time: %f\n",eiei_output2);
+    if (IMU_timer.read()>0.05){
+      double eiei_output1 = timer_slow.read();
+      pc.printf("time: %f \t\t\t",eiei_output1);
+      timer_slow.reset();
+      task_sent();
+      double eiei_output2 = timer_slow.read();
+      timer_slow.reset();
+      pc.printf("\t\t\t time: %f\n",eiei_output2);
+      IMU_timer.reset();
+    }
   }
 }
