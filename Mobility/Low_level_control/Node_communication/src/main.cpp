@@ -197,6 +197,7 @@ int main()
       timer_slow.reset();
       pc.printf("\t\t\t time: %f\n",eiei_output2);
       IMU_timer.reset();
+      
     }
   }
 }
