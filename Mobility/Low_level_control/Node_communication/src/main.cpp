@@ -2,8 +2,8 @@
 #include "MPU9250.h"
 #include <math.h>
 
-Serial pc(USBTX, USBRX,400000);
-Serial bluetooth(PA_11, PA_12 ,400000);
+Serial pc(USBTX, USBRX);
+Serial bluetooth(PA_11, PA_12);
 PwmOut FLWheel(D5);
 PwmOut FRWheel(D4);
 PwmOut BLWheel(D3);
@@ -19,7 +19,6 @@ DigitalOut BackRB(D6);
 
 MPU9250 imu;
 Timer timer_slow;
-Timer IMU_timer;
 #define PI 3.141592
 
 void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
@@ -27,19 +26,11 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
   float FR=0;
   float BL=0;
   float BR=0;
-<<<<<<< HEAD
     FL =(Vx - Vy + (Wz*(-0.28)))/200.0; 
     FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
     BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
     BR =(Vx - Vy + (Wz*(0.28)))/200.0;
     pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
-=======
-    FL =(Vx - Vy + (Wz*(-0.15)))/200.0; 
-    FR =(Vx + Vy + (Wz*(0.15)))/200.0; 
-    BL =(Vx + Vy + (Wz*(-0.15)))/200.0; 
-    BR =(Vx - Vy + (Wz*(0.15)))/200.0;
-    // pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
->>>>>>> a47c58c22ce3ac328192cf0bf42e9e633f6d1dae
   
     if (FL>0){
       FrontLF=1;
@@ -115,7 +106,6 @@ void task_sent() {
 int main()
 {
   GO(0.00,0.00,0.00);
-  
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   pc.printf("I AM 0x%x\n\r", whoami);
   if (whoami == 0x73) // WHO_AM_I should always be 0x73
@@ -155,13 +145,9 @@ int main()
   BackRF = 0;
   BackRB = 0;
   timer_slow.start();
-  IMU_timer.start();
-
   char command[13];
-  pc.printf("Hello World");
   while (1)
   {
-  wait_ns(5);
   timer_slow.reset();
   if (pc.readable()) {
     pc.gets(command, 13);
@@ -196,15 +182,12 @@ int main()
       }
     GO(Vx,Vy,Wz);
     }
-    if (IMU_timer.read()>0.05){
-      double eiei_output1 = timer_slow.read();
-      pc.printf("time: %f \t\t\t",eiei_output1);
-      timer_slow.reset();
-      task_sent();
-      double eiei_output2 = timer_slow.read();
-      timer_slow.reset();
-      pc.printf("\t\t\t time: %f\n",eiei_output2);
-      IMU_timer.reset();
-    }
+    // double eiei_output1 = timer_slow.read();
+    // pc.printf("time: %f \t\t\t",eiei_output1);
+    // timer_slow.reset();
+    // task_sent();
+    // double eiei_output2 = timer_slow.read();
+    // timer_slow.reset();
+    // pc.printf("\t\t\t time: %f\n",eiei_output2);
   }
 }
