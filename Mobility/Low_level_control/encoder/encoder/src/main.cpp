@@ -110,7 +110,7 @@ int main()
   int time;
 
   spi.format(16,1);
-  spi.frequency(1000000);
+  spi.frequency(10000000);
   cs = 1;
   cs2 = 1;
   cs3 = 1;
