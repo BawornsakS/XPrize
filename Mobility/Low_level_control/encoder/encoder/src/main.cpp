@@ -118,8 +118,15 @@ int main()
   cs4 = 1;
 
   t.start();
-  int dt = 100;
+  int dt = 10;
   int ds = 500;
+
+  int radius = 8;//mm
+  int Velocity = 0;
+  int Vx;
+  int Vy;
+  int Wz;
+  int distance = 0;
   // ----------- main loop ----------
   while(1)
   {
@@ -142,6 +149,12 @@ int main()
       if(ang2>ang1)
       {
         W = (ang2-ang1);
+        W = (W*60*1000)/(16383*time)/14;
+      }
+      if(ang1>ang2)
+      {
+        W = ang1-ang2;
+        W = -(W*60*1000)/(16383*time)/14;
       }
       if(ang22>ang12)
       {
@@ -156,15 +169,26 @@ int main()
         W4 = (ang24-ang14);
       }
 
-      W = (W*60*1000)/(16383*dt);
-      W2 = (W2*60*1000)/(16383*dt);
-      W3 = (W3*60*1000)/(16383*dt);
-      W4 = (W4*60*1000)/(16383*dt);
+       //W = (W*60*1000)/(16383*time)/14;
+       W2 = (W2*60*1000)/(16383*time);
+       W3 = (W3*60*1000)/(16383*time);
+       W4 = (W4*60*1000)/(16383*time);
 
-      pc.printf("%X : ",W);
-      pc.printf("%X : ",W2);
-      pc.printf("%X : ",W3);
-      pc.printf("%X\n",W4);
+      //W = (W*2*3.14*1000)/(16383*time);
+      //W2 = (W2*2*3.14*1000)/(16383*time);
+      //W3 = (W3*2*3.14*1000)/(16383*time);
+      //W4 = (W4*2*3.15*1000)/(16383*time);
+
+      Vx = (W2 + W4 - W - W3)*radius/4;
+      Vy = (W+W2+W3+W4) * radius/4;
+
+      Velocity = W3*radius;
+      distance = distance +(Velocity*time);
+
+      pc.printf("%d\n",W);
+      // pc.printf("%X : ",W2);
+      // pc.printf("%d",distance);
+      // pc.printf("%X\n",W4);
 
       ang1 = 0;
       ang2 = 0;
@@ -178,5 +202,3 @@ int main()
     }
   }
 }
-
-
