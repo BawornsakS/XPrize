@@ -101,7 +101,7 @@ int main()
 
   int ang14 = 0;
   int ang24 = 0;
-
+  int diff;
   int W;
   int W2;
   int W3;
@@ -118,7 +118,7 @@ int main()
   cs4 = 1;
 
   t.start();
-  int dt = 10;
+  int dt = 5;
   int ds = 500;
 
   int radius = 8;//mm
@@ -130,6 +130,7 @@ int main()
   // ----------- main loop ----------
   while(1)
   {
+    ang2 = encoder();
 
     time = t.read_ms();
     if(time == 0)
@@ -140,22 +141,35 @@ int main()
       ang14 = encoder4();
     }
 
+
     if(time == dt)
     {
       ang2 = encoder();
       ang22 = encoder2();
       ang23 = encoder3();
       ang24 = encoder4();
-      if(ang2>ang1)
+
+
+      diff = ang2-ang1;
+      if(diff > 16384/2)
       {
-        W = (ang2-ang1);
-        W = (W*60*1000)/(16383*time)/14;
+        diff = diff - 16384;
       }
-      if(ang1>ang2)
+      if(diff < -16384/2)
       {
-        W = ang1-ang2;
-        W = -(W*60*1000)/(16383*time)/14;
+        diff = (16384 + diff);
       }
+      
+      // if(ang2>ang1)
+      // {
+      //   W = (ang2-ang1);
+      //   W = (W*60*1000)/(16383*time)/14;
+      // }
+      // if(ang1>ang2)
+      // {
+      //   W = ang1-ang2;
+      //   W = -(W*60*1000)/(16383*time)/14;
+      // }
       if(ang22>ang12)
       {
         W2 = (ang22-ang12);
@@ -169,12 +183,12 @@ int main()
         W4 = (ang24-ang14);
       }
 
-       //W = (W*60*1000)/(16383*time)/14;
+       W = (diff*60*1000)/(16384*time)/14;
        W2 = (W2*60*1000)/(16383*time);
        W3 = (W3*60*1000)/(16383*time);
        W4 = (W4*60*1000)/(16383*time);
 
-      //W = (W*2*3.14*1000)/(16383*time);
+      //W = (diff*2*3.14*1000)/(16383*time)/14;
       //W2 = (W2*2*3.14*1000)/(16383*time);
       //W3 = (W3*2*3.14*1000)/(16383*time);
       //W4 = (W4*2*3.15*1000)/(16383*time);
@@ -182,10 +196,10 @@ int main()
       Vx = (W2 + W4 - W - W3)*radius/4;
       Vy = (W+W2+W3+W4) * radius/4;
 
-      Velocity = W3*radius;
+      Velocity = (W*radius*2*3.14)/60;
       distance = distance +(Velocity*time);
 
-      pc.printf("%d\n",W);
+      pc.printf("%d\n",distance);
       // pc.printf("%X : ",W2);
       // pc.printf("%d",distance);
       // pc.printf("%X\n",W4);
