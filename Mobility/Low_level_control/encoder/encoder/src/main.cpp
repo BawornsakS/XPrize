@@ -150,7 +150,7 @@ int main()
       ang24 = encoder4();
 
 
-      diff = ang2-ang1;
+      diff = ang23-ang13;
       if(diff > 16384/2)
       {
         diff = diff - 16384;
@@ -183,7 +183,7 @@ int main()
         W4 = (ang24-ang14);
       }
 
-       W = (diff*60*1000)/(16384*time)/14;
+       W = (diff*60*1000)/(16384*time);
        W2 = (W2*60*1000)/(16383*time);
        W3 = (W3*60*1000)/(16383*time);
        W4 = (W4*60*1000)/(16383*time);
