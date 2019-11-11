@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/install
+
+Name: rplidar_ros
+Description: Description of rplidar_ros
+Version: 1.9.0
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/install/lib 
+Requires: 
