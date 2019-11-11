@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<robot name="openseal1">
+
+  <material name="dark_grey">
+    <color rgba="0.4 0.4 0.4 1"/>
+  </material>
+
+  <material name="aluminium">
+    <color rgba="0.7 0.7 0.7 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="green">
+    <color rgba="0 0.702 0.173 1"/>
+  </material>
+
+  <link name="map"/>
+
+  <link name="odom"/>
+  <!-- type = "floating" -->
+  <joint name="map_to_odom" type="fixed" > 
+    <parent link="map"/>
+    <child link="odom"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 3.14159" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://cartographer_ros/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+
+  <joint name="odom_to_base_link" type="fixed">
+    <parent link="odom"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0635"/>
+  </joint>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_link_to_base_footprint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.0635"/>
+  </joint>
+
+  <link name="right_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://cartographer_ros/meshes/wheel_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.57075 0 0"/>
+      <material name="aluminium"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin rpy="0 0 0" xyz="0.02987 -0.095 -0.0315"/>
+    <limit effort="100" velocity="12.5"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="left_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://cartographer_ros/meshes/wheel_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.57075 0 0"/>
+      <material name="aluminium"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_left_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin rpy="0 0 0" xyz="0.02987 0.095 -0.0315"/>
+    <limit effort="100" velocity="12.5"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="laser">
+    <visual>
+      <geometry>
+        <mesh filename="package://cartographer_ros/meshes/laser.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+      
+    </visual>
+  </link>
+
+  <joint name="base_to_laser" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser"/>
+    <origin rpy="0 0 3.14159" xyz="0.007 0 0.099"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <link name="lidar_base">
+    <visual>
+      <geometry>
+        <mesh filename="package://cartographer_ros/meshes/lidar_base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 3.14159"/>
+      <material name="black"/>
+      
+    </visual>
+  </link>
+
+  <joint name="base_to_lidar_base" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_base"/>
+    <origin xyz="-0.005 0 0.0580"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <link name="imu_link">
+    <visual>
+      <geometry>
+        <box size = "0.01 0.01 0.01"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_imu_link" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin rpy="0 0 0" xyz="0.065 0 0.017"/>
+  </joint>
+
+  <!-- <link name="cam_link">
+    <visual>
+      <geometry>
+        <box size = "0.002 0.025 0.023862 "/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_cam_link" type="fixed">
+    <parent link="base_link"/>
+    <child link="cam_link"/>
+    <origin rpy="0 0.139626 0" xyz="0.09 0 0.024"/>
+  </joint>
+
+
+  <link name="ultrasonic_right">
+    <visual>
+      <geometry>
+        <box size = "0.012 0.022 0.043"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_us_right" type="fixed">
+    <parent link="base_link"/>
+    <child link="ultrasonic_right"/>
+    <origin rpy="0 0 -0.785398" xyz="0.064 -0.056 -0.027"/>
+  </joint>
+
+  <link name="ultrasonic_left">
+    <visual>
+      <geometry>
+        <box size = "0.012 0.022 0.043"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_us_left" type="fixed">
+    <parent link="base_link"/>
+    <child link="ultrasonic_left"/>
+    <origin rpy="0 0 0.785398" xyz="0.064 0.056 -0.027"/>
+  </joint>
+
+  <link name="ultrasonic_mid">
+    <visual>
+      <geometry>
+        <box size = "0.012 0.043 0.022"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_us_mid" type="fixed">
+    <parent link="base_link"/>
+    <child link="ultrasonic_mid"/>
+    <origin rpy="0 0 0" xyz="0.09 0 -0.027"/>
+  </joint>  -->
+
+</robot>
