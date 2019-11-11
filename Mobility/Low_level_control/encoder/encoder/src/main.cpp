@@ -136,9 +136,13 @@ int main()
     if(time == 0)
     {
       ang1 = encoder();
+      wait_us(5);
       ang12 = encoder2();
+      wait_us(5);
       ang13 = encoder3();
+      wait_us(5);
       ang14 = encoder4();
+      wait_us(5);
     }
 
 
