@@ -1,8 +1,0 @@
-prefix=/home/bally/Bally_Workspace/install
-
-Name: my_bot
-Description: Description of my_bot
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/bally/Bally_Workspace/install/lib 
-Requires: 
