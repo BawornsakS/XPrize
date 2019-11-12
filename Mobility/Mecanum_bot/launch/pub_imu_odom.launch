@@ -1,0 +1,4 @@
+<launch>
+    <node name="odometry_publisher" pkg="my_bot" type="publish_odom.py" />
+    <node name="imu_publisher" pkg="my_bot" type="publish_imu.py" />
+</launch>
