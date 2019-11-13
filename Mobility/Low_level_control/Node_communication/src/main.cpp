@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX,1000000);
-Serial bluetooth(PA_11, PA_12 ,300000);
+Serial bluetooth(PA_11, PA_12 ,250000);
 SPI spi(D11, D12, D13);
 
 PwmOut FLWheel(D5);
@@ -29,6 +29,15 @@ Timer timer_slow;
 Timer IMU_timer;
 Timer t;
 #define PI 3.141592
+int radius = 8;//mm
+int Velocity = 0;
+int Vx;
+int Vy;
+int Wz;
+int distances = 0;
+int distanceX  = 0;
+int distanceY = 0;
+int O = 0;
 
 void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
   float FL=0;
@@ -246,7 +255,7 @@ int main()
   time = t.read_ms();
   timer_slow.reset();
   if (pc.readable()) {
-    pc.scanf("%s", command);
+    // pc.scanf("%s", command);
     float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
     float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
     float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
@@ -327,10 +336,18 @@ int main()
       W2 = (W2*60*1000)/(16383*time);
       W3 = (W3*60*1000)/(16383*time);
       W4 = (W4*60*1000)/(16383*time);
-      pc.printf("|%d,%d,%d,%d|\n",W,W2,W3,W4);
+      Vx = (W2 + W4 - W - W3) * radius/4;
+      Vy = (W + W2 + W3 + W4) * radius/4;
+      Wz = (W2+W4-W-W3)*radius/(280*4);
+
+      Velocity = (W*radius*2*3.14)/60;
+      distances = distances +(Velocity*time);
+      distanceX = distanceX +(Vx*time);
+      distanceY = distanceY +(Vy*time);
+      O = O + (Wz*time);
+      pc.printf("|%d,%d,%d|\n",distanceX,distanceY,O);
       t.reset();
       double eiei_output1 = timer_slow.read();
-      // pc.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\ttime: %f\n",eiei_output1);
       timer_slow.reset();
       continue;
     }
