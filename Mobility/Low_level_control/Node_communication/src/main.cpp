@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX,1000000);
-Serial bluetooth(PA_11, PA_12 ,250000);
+Serial bluetooth(PA_11, PA_12 ,300000);
 SPI spi(D11, D12, D13);
 
 PwmOut FLWheel(D5);
@@ -108,9 +108,7 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
 
 int encoder()
 {
-
   static int w;
-  cs = 1;
   cs = 0;
   spi.write(0xFFFF);
   cs = 1;
@@ -119,14 +117,11 @@ int encoder()
   w = spi.write(0x0000);
   cs = 1;
   w = w & 0x3FFF;
-  //w=w/2;
   return w;
 }
 int encoder2()
 {
-
   static int w2;
-  cs2 = 1;
   cs2 = 0;
   spi.write(0xFFFF);
   cs2 = 1;
@@ -135,15 +130,12 @@ int encoder2()
   w2 = spi.write(0x0000);
   cs2 = 1;
   w2 = w2 & 0x3FFF;
-  //w=w/2;
   return w2;
 }
 
 int encoder3()
 {
-
   static int w3;
-  cs3 = 1;
   cs3 = 0;
   spi.write(0xFFFF);
   cs3 = 1;
@@ -152,15 +144,12 @@ int encoder3()
   w3 = spi.write(0x0000);
   cs3 = 1;
   w3 = w3 & 0x3FFF;
-  //w=w/2;
   return w3;
 }
 
 int encoder4()
 {
-
   static int w4;
-  cs4 = 1;
   cs4 = 0;
   spi.write(0xFFFF);
   cs4 = 1;
@@ -185,25 +174,20 @@ int main()
   GO(0.00,0.00,0.00);
   
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
-  pc.printf("I AM 0x%x\n\r", whoami);
+  // pc.printf("I AM 0x%x\n\r", whoami);
   if (whoami == 0x73) // WHO_AM_I should always be 0x73
   {
-    pc.printf("MPU9250 WHO_AM_I is 0x%x\n\r", whoami);
-    pc.printf("MPU9250 is online...\n\r");
-    wait(1);
+    wait_ms(10.0);
     imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
     imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
     imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
-    wait(2);
+    wait_ms(20.0);
     imu.initMPU9250();
     imu.initAK8963(imu.magCalibration);
-    wait(1);
+    wait_ms(10.0);
   }
   else
   {
-    pc.printf("Could not connect to MPU9250: \n\r");
-    pc.printf("%#x \n", whoami);
-
     while (1); // Loop forever if communication doesn't happen
   }
   imu.getAres(); // Get accelerometer sensitivity
@@ -257,7 +241,6 @@ int main()
   t.start();
   int dt = 100;
 
-  pc.printf("Hello World");
   while (1)
   {
   time = t.read_ms();

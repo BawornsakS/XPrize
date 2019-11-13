@@ -1,3 +1,4 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "python.pythonPath": "C:\\Users\\Xprize\\.conda\\envs\\all\\python.exe"
 }
