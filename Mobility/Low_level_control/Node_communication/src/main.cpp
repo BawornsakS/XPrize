@@ -29,15 +29,16 @@ Timer timer_slow;
 Timer IMU_timer;
 Timer t;
 #define PI 3.141592
+#define G 9.834565215
 int radius = 8;//mm
 int Velocity = 0;
 int Vx;
 int Vy;
 int Wz;
-int distances = 0;
-int distanceX  = 0;
-int distanceY = 0;
-int O = 0;
+float distances = 0;
+float distanceX  = 0;
+float distanceY = 0;
+float O = 0;
 int dt = 100;
 
 void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
@@ -176,11 +177,12 @@ void task_sent() {
   imu.readimu();
   //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
   //pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz));
+  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
 }
 
 int main()
 {
+  wait(2);
   GO(0.00,0.00,0.00);
   
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
@@ -372,28 +374,28 @@ int main()
 
       
 
-       W = (diff*60*1000*3)/(16384*2*time);//rpm
-       W2 = (diff2*60*1000*3)/(16384*2*time);//rpm
-       W3 = (diff3*60*1000*3)/(16384*2*time);//rpm
-       W4 = (diff4*60*1000*3)/(16384*2*time);//rpm
+       W = (diff*1000*3*PI)/(8192*2*time);//rad/s
+       W2 = (diff2*1000*3*PI)/(8192*2*time);//rpm
+       W3 = (diff3*1000*3*PI)/(8192*2*time);//rpm
+       W4 = (diff4*1000*3*PI)/(8192*2*time);//rpm
 
       //W = (diff*2*3.14*1000)/(16383*time)/14;
       //W2 = (W2*2*3.14*1000)/(16383*time);
       //W3 = (W3*2*3.14*1000)/(16383*time);
       //W4 = (W4*2*3.15*1000)/(16383*time);
 
-      Vy = (W2 + W3 - W - W4) * radius/4;
+      Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
       Vx = (W + W2 + W3 + W4) * radius/4;
       Wz = (W2+W4-W-W3)*radius/(4*280);
 
-      distanceX = distanceX + (Vx*time);
-      distanceY = distanceY + (Vy*time);
-      O = O + (Wz*time);
+      distanceX = distanceX + (Vx*time/1000000.00000000);
+      distanceY = distanceY + (Vy*time/1000000.00000000);
+      O = O + (Wz*time/1000000.000000000);
 
-      Velocity = (W*radius*2*3.14)/60;
+      Velocity = (W*radius*2*PI)/60;
       distance = distance +(Velocity*time);
-      pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
-      pc.printf("|%d,%d,%d|\n",distanceX,distanceY,O);
+      // pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
+      pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O);
       t.reset();
       double eiei_output1 = timer_slow.read();
       timer_slow.reset();
