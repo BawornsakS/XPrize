@@ -30,7 +30,7 @@ Timer IMU_timer;
 Timer t;
 #define PI 3.141592
 #define G 9.834565215
-int radius = 8;//mm
+int radius = 49;//mm
 int Velocity = 0;
 int Vx;
 int Vy;
@@ -374,10 +374,10 @@ int main()
 
       
 
-       W = (diff*1000*3*PI)/(8192*2*time);//rad/s
-       W2 = (diff2*1000*3*PI)/(8192*2*time);//rpm
-       W3 = (diff3*1000*3*PI)/(8192*2*time);//rpm
-       W4 = (diff4*1000*3*PI)/(8192*2*time);//rpm
+       W = (diff*1000*2*PI)/(8192*3*time);//rad/s
+       W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
+       W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
+       W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
 
       //W = (diff*2*3.14*1000)/(16383*time)/14;
       //W2 = (W2*2*3.14*1000)/(16383*time);
