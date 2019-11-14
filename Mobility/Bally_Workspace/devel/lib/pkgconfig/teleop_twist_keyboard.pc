@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: teleop_twist_keyboard
+Description: Description of teleop_twist_keyboard
+Version: 0.6.2
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: 

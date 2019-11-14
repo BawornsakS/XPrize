@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: neo_platformctrl_diff
+Description: Description of neo_platformctrl_diff
+Version: 0.1.2
+Cflags: -I/home/bally/Bally_Workspace/src/neo_driver/neo_platformctrl_diff/common/include
+Libs: -L/home/bally/Bally_Workspace/devel/lib -lneo_platformctrl_diff
+Requires: roscpp rostest std_msgs tf nav_msgs sensor_msgs

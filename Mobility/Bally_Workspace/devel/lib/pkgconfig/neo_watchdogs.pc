@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: neo_watchdogs
+Description: Description of neo_watchdogs
+Version: 0.1.2
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: neo_relayboard roscpp move_base_msgs neo_msgs

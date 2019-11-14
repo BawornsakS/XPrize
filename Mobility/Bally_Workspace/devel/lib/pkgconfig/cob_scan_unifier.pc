@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: cob_scan_unifier
+Description: Description of cob_scan_unifier
+Version: 0.0.0
+Cflags: -I/home/bally/Bally_Workspace/src/cob_scan_unifier/include
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: laser_geometry roscpp rospy sensor_msgs tf

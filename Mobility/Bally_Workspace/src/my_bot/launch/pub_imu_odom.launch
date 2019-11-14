@@ -1,0 +1,5 @@
+<launch>
+	<node name="sub_serial" pkg="my_bot" type="sub_serial.py" />
+	<node name="imu_publisher" pkg="my_bot" type="publish_imu.py" />
+	<node name="odometry_publisher" pkg="my_bot" type="publish_odom.py" />
+</launch>

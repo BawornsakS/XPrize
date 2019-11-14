@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: neo_simulation
+Description: Description of neo_simulation
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: neo_base_mp_400
+Description: Description of neo_base_mp_400
+Version: 0.1.2
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: 

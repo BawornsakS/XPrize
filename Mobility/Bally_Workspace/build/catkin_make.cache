@@ -1,0 +1,2 @@
+my_bot:rosbot_description/src/rosbot_description:rosbot_description/src/rosbot_gazebo:rosbot_description/src/rosbot_navigation:rplidar_ros:teleop_twist_keyboard
+-DCATKIN_DEVEL_PREFIX=/home/bally/Bally_Workspace/devel -DCMAKE_INSTALL_PREFIX=/home/bally/Bally_Workspace/install -G Unix Makefiles

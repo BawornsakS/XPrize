@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/install
+
+Name: rosbot_gazebo
+Description: Description of rosbot_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/bally/Bally_Workspace/devel
+
+Name: cob_sick_s300
+Description: Description of cob_sick_s300
+Version: 0.6.2
+Cflags: 
+Libs: -L/home/bally/Bally_Workspace/devel/lib 
+Requires: roscpp sensor_msgs diagnostic_msgs
