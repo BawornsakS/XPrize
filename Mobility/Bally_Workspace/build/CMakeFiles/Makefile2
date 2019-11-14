@@ -1392,60 +1392,6 @@ clean: rplidar_ros/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory rosbot_description/src/rosbot_navigation
-
-# Convenience name for "all" pass in the directory.
-rosbot_description/src/rosbot_navigation/all:
-
-.PHONY : rosbot_description/src/rosbot_navigation/all
-
-# Convenience name for "clean" pass in the directory.
-rosbot_description/src/rosbot_navigation/clean:
-
-.PHONY : rosbot_description/src/rosbot_navigation/clean
-
-# Convenience name for "preinstall" pass in the directory.
-rosbot_description/src/rosbot_navigation/preinstall:
-
-.PHONY : rosbot_description/src/rosbot_navigation/preinstall
-
-#=============================================================================
-# Directory level rules for directory rosbot_description/src/rosbot_description
-
-# Convenience name for "all" pass in the directory.
-rosbot_description/src/rosbot_description/all:
-
-.PHONY : rosbot_description/src/rosbot_description/all
-
-# Convenience name for "clean" pass in the directory.
-rosbot_description/src/rosbot_description/clean:
-
-.PHONY : rosbot_description/src/rosbot_description/clean
-
-# Convenience name for "preinstall" pass in the directory.
-rosbot_description/src/rosbot_description/preinstall:
-
-.PHONY : rosbot_description/src/rosbot_description/preinstall
-
-#=============================================================================
-# Directory level rules for directory rosbot_description/src/rosbot_gazebo
-
-# Convenience name for "all" pass in the directory.
-rosbot_description/src/rosbot_gazebo/all:
-
-.PHONY : rosbot_description/src/rosbot_gazebo/all
-
-# Convenience name for "clean" pass in the directory.
-rosbot_description/src/rosbot_gazebo/clean:
-
-.PHONY : rosbot_description/src/rosbot_gazebo/clean
-
-# Convenience name for "preinstall" pass in the directory.
-rosbot_description/src/rosbot_gazebo/preinstall:
-
-.PHONY : rosbot_description/src/rosbot_gazebo/preinstall
-
-#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

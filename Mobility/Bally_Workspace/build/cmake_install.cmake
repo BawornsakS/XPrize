@@ -134,9 +134,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/bally/Bally_Workspace/build/teleop_twist_keyboard/cmake_install.cmake")
   include("/home/bally/Bally_Workspace/build/my_bot/cmake_install.cmake")
   include("/home/bally/Bally_Workspace/build/rplidar_ros/cmake_install.cmake")
-  include("/home/bally/Bally_Workspace/build/rosbot_description/src/rosbot_navigation/cmake_install.cmake")
-  include("/home/bally/Bally_Workspace/build/rosbot_description/src/rosbot_description/cmake_install.cmake")
-  include("/home/bally/Bally_Workspace/build/rosbot_description/src/rosbot_gazebo/cmake_install.cmake")
 
 endif()
 
