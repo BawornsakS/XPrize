@@ -29,7 +29,7 @@ Timer timer_slow;
 Timer IMU_timer;
 Timer t;
 #define PI 3.141592
-#define G 9.834565215
+#define G 9.782970341
 int radius = 49;//mm
 int Velocity = 0;
 int Vx;
