@@ -1,2 +1,0 @@
-my_bot:rplidar_ros
--DCATKIN_DEVEL_PREFIX=/home/bally/Bally_Workspace/devel -DCMAKE_INSTALL_PREFIX=/home/bally/Bally_Workspace/install -G Unix Makefiles

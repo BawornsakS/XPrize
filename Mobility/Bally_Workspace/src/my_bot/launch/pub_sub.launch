@@ -1,4 +1,0 @@
-<launch>
-    <node name="publisher" pkg= "smile" type="publisher.py"/>
-    <node name="subscriber" pkg= "smile" type="subscriber.py" output="screen"/>
-</launch>
