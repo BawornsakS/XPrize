@@ -120,6 +120,7 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
 int encoder()
 {
   static int w;
+  cs = 1;
   cs = 0;
   spi.write(0xFFFF);
   cs = 1;
@@ -133,6 +134,7 @@ int encoder()
 int encoder2()
 {
   static int w2;
+  cs2 = 1;
   cs2 = 0;
   spi.write(0xFFFF);
   cs2 = 1;
@@ -147,6 +149,7 @@ int encoder2()
 int encoder3()
 {
   static int w3;
+  cs3 = 1;
   cs3 = 0;
   spi.write(0xFFFF);
   cs3 = 1;
@@ -161,6 +164,7 @@ int encoder3()
 int encoder4()
 {
   static int w4;
+  cs4 = 1;
   cs4 = 0;
   spi.write(0xFFFF);
   cs4 = 1;
@@ -386,11 +390,11 @@ int main()
 
       Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
       Vx = (W + W2 + W3 + W4) * radius/4;
-      Wz = (W2+W4-W-W3)*radius/(4*280);
+      Wz = (W2+W4-W-W3)*radius/(4*285);
 
       distanceX = distanceX + (Vx*time/1000000.00000000);
       distanceY = distanceY + (Vy*time/1000000.00000000);
-      O = O + (Wz*time/1000000.000000000);
+      O = O + (Wz*time*2*180/(PI*1000.000000000));
 
       Velocity = (W*radius*2*PI)/60;
       distance = distance +(Velocity*time);
