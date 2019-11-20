@@ -8,13 +8,14 @@ SPI spi(D11, D12, D13); // mosi, miso, sclk
 // D12 ต่อกับขา MISO ของ Encoder
 // D13 ต่อกับขา CLK ของ Encoder
 
+#define PI 3.141592
 DigitalOut cs(A0);
 DigitalOut cs2(A1);
 DigitalOut cs3(A2);
 DigitalOut cs4(A3);
-int distanceX = 0;
-int distanceY = 0;
-int O = 0;
+float distanceX = 0;
+float distanceY = 0;
+float O = 0;
 
 // D10 ต่อกับขา CS ของ Encoder
 // CS ใช้ในการ chip select เพื่อใช้ในการเลือกรับส่งข้อมูลกับ slave
@@ -156,7 +157,7 @@ int main()
 
 
 
-    if(time == dt)
+    if(time >= dt)
     {
       ang2 = encoder();
       ang22 = encoder2();
@@ -206,39 +207,33 @@ int main()
       }
 
       
-
-       W = (diff*60*1000*3)/(16384*2*time);//rpm
-       W2 = (diff2*60*1000*3)/(16384*2*time);//rpm
-       W3 = (diff3*60*1000*3)/(16384*2*time);//rpm
-       W4 = (diff4*60*1000*3)/(16384*2*time);//rpm
+       W = (diff*1000*2*PI)/(8192*3*time);//rad/s
+       W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
+       W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
+       W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
 
       //W = (diff*2*3.14*1000)/(16383*time)/14;
       //W2 = (W2*2*3.14*1000)/(16383*time);
       //W3 = (W3*2*3.14*1000)/(16383*time);
       //W4 = (W4*2*3.15*1000)/(16383*time);
 
-      Vx = (W2 + W4 - W - W3) * radius/4;
-      Vy = (W + W2 + W3 + W4) * radius/4;
-
-      Velocity = (W*radius*2*3.14)/60;
-      distance = distance +(Velocity*time);
-      
-      Vx = (W2 + W4 - W - W3) * radius/4;
-      Vy = (W + W2 + W3 + W4) * radius/4;
+      Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
+      Vx = (W + W2 + W3 + W4) * radius/4;
       Wz = (W2+W4-W-W3)*radius/(4*280);
 
-      distanceX = distanceX + (Vx*time);
-      distanceY = distanceY + (Vy*time);
-      O = O + (Wz*time);
+      distanceX = distanceX + (Vx*time/1000000.00000000);
+      distanceY = distanceY + (Vy*time/1000000.00000000);
+      O = O + (Wz*time*2*180/(PI*1000.000000000));
 
-      Velocity = (W*radius*2*3.14)/60;
+      Velocity = (W*radius*2*PI)/60;
       distance = distance +(Velocity*time);
+
 
       pc.printf("%d\t:\t",W);
       pc.printf("%d\t:\t",W2);
       pc.printf("%d\t:\t",W3);
       pc.printf("%d\t",W4);
-      pc.printf("\t%d\t%d\t%d|\n",distanceX,distanceY,O);
+      pc.printf("\t%.5f\t%.5f\t%.5f|\n",distanceX,distanceY,O);
 
       ang1 = 0;
       ang2 = 0;
