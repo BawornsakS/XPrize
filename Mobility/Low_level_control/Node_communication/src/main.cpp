@@ -177,7 +177,7 @@ void task_sent() {
   imu.readimu();
   //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
   //pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
+  //pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
 }
 
 int main()
@@ -381,16 +381,19 @@ int main()
 
       //W = (diff*2*3.14*1000)/(16383*time)/14;
       //W2 = (W2*2*3.14*1000)/(16383*time);
-      //W3 = (W3*2*3.14*1000)/(16383*time);
+      //W3 = (W3*2*3.14*1000)/(16383*time)1;b
       //W4 = (W4*2*3.15*1000)/(16383*time);
 
       Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
       Vx = (W + W2 + W3 + W4) * radius/4;
       Wz = (W2+W4-W-W3)*radius/(4*280);
+      O = O + (Wz*time/1000.000000000);
 
-      distanceX = distanceX + (Vx*time/1000000.00000000);
-      distanceY = distanceY + (Vy*time/1000000.00000000);
-      O = O + (Wz*time/1000000.000000000);
+      float VposX =Vx*cos(O) - Vy*sin(O);
+      float VposY = Vy*cos(O) + Vx*sin(O);
+      distanceX = distanceX + (VposX*time/1000000.00000000);
+      distanceY = distanceY + (VposY*time/1000000.00000000);
+
 
       Velocity = (W*radius*2*PI)/60;
       distance = distance +(Velocity*time);
