@@ -3,7 +3,7 @@
 #include <math.h>
 
 Serial pc(USBTX, USBRX,1000000);
-Serial bluetsooth(PA_11, PA_12 ,250000);
+Serial bluetooth(PA_11, PA_12 ,115200);
 SPI spi(D11, D12, D13);
 
 PwmOut FLWheel(D5);
@@ -41,11 +41,13 @@ float distanceY = 0;
 float O = 0;
 int dt = 100;
 
-void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
+void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
   float FL=0;
   float FR=0;
   float BL=0;
   float BR=0;
+  Vy =- Vy;
+  Wz =- Wz;
     FL =(Vx - Vy + (Wz*(-0.28)))/200.0; 
     FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
     BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
@@ -120,7 +122,7 @@ void GO(float Vx=0.00,float Vy=-0.00,float Wz=0.00){
 int encoder()
 {
   static int w;
-  cs = 1;
+  wait_us(1);
   cs = 0;
   spi.write(0xFFFF);
   cs = 1;
@@ -134,7 +136,7 @@ int encoder()
 int encoder2()
 {
   static int w2;
-  cs2 = 1;
+  wait_us(1);
   cs2 = 0;
   spi.write(0xFFFF);
   cs2 = 1;
@@ -149,7 +151,7 @@ int encoder2()
 int encoder3()
 {
   static int w3;
-  cs3 = 1;
+  wait_us(1);
   cs3 = 0;
   spi.write(0xFFFF);
   cs3 = 1;
@@ -164,7 +166,7 @@ int encoder3()
 int encoder4()
 {
   static int w4;
-  cs4 = 1;
+  wait_us(1);
   cs4 = 0;
   spi.write(0xFFFF);
   cs4 = 1;
@@ -173,7 +175,6 @@ int encoder4()
   w4 = spi.write(0x0000);
   cs4 = 1;
   w4 = -(w4 & 0x3FF0);
-  //w=w/2;
   return w4;
 }
 
@@ -181,7 +182,7 @@ void task_sent() {
   imu.readimu();
   //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
   //pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-  //pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
+  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
 }
 
 int main()
@@ -226,55 +227,38 @@ int main()
   IMU_timer.start();
 
   char command[15];
-
   int ang1 = 0;
   int ang2 = 0;
-
   int ang12 = 0;
   int ang22 = 0;
-
   int ang13 =0;
   int ang23 = 0;
-
   int ang14 = 0;
   int ang24 = 0;
-
   int diff;
   int diff2;
   int diff3;
   int diff4;
-
   int W;
   int W2;
   int W3;
   int W4;
-
   int time;
   int time_count;
-
   spi.format(16,1);
   spi.frequency(10000000);
-  
   cs = 1;
   cs2 = 1;
   cs3 = 1;
   cs4 = 1;
-
   t.start();
-
-  int radius = 49;//mm
-  int Velocity = 0;
-  int Vx;
-  int Vy;
-  int Wz;
-  int distance = 0;
 
   while (1)
   {
   time = t.read_ms();
   timer_slow.reset();
   if (pc.readable()) {
-    // pc.scanf("%s", command);
+    pc.scanf("%s", command);
     float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
     float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
     float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
@@ -327,13 +311,12 @@ int main()
       continue;
     }
 
-   else if(time >= dt)
+    else if(time >= dt)
     {
       ang2 = encoder();
       ang22 = encoder2();
       ang23 = encoder3();
       ang24 = encoder4();
-
 
       diff = ang2-ang1;
       diff2 = ang22-ang12;
@@ -376,17 +359,10 @@ int main()
         diff4 = (16384 + diff4);
       }
 
-      
-
-       W = (diff*1000*2*PI)/(8192*3*time);//rad/s
-       W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
-       W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
-       W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
-
-      //W = (diff*2*3.14*1000)/(16383*time)/14;
-      //W2 = (W2*2*3.14*1000)/(16383*time);
-      //W3 = (W3*2*3.14*1000)/(16383*time)1;b
-      //W4 = (W4*2*3.15*1000)/(16383*time);
+      W = (diff*1000*2*PI)/(8192*3*time);//rad/s
+      W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
+      W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
+      W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
 
       Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
       Vx = (W + W2 + W3 + W4) * radius/4;
@@ -398,9 +374,8 @@ int main()
       distanceX = distanceX + (VposX*time/1000000.00000000);
       distanceY = distanceY + (VposY*time/1000000.00000000);
 
-
       Velocity = (W*radius*2*PI)/60;
-      distance = distance +(Velocity*time);
+      //distance = distance + (Velocity*time);
       // pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
       pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O);
       t.reset();
