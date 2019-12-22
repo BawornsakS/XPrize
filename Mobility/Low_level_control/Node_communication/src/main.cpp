@@ -46,9 +46,7 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
   float FR=0;
   float BL=0;
   float BR=0;
-  Vy =- Vy;
-  Wz =- Wz;
-    FL =(Vx - Vy + (Wz*(-0.28)))/200.0; 
+    FL=(Vx - Vy + (Wz*(-0.28)))/200.0; 
     FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
     BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
     BR =(Vx - Vy + (Wz*(0.28)))/200.0;
@@ -119,6 +117,14 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
     }
   }
 
+void GO2(float Vx=0.00,float Vy=0.00,float Wz=0.00){
+    float error_trata = Wz - O;
+    float error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180 / PI;
+    float Wz2 = error_trata2 * 1.2;
+    pc.printf("\t%f\t%f\t%f\t%f\t%f\n",Wz,O,error_trata,error_trata2,Wz2);
+    GO(0,0,Wz2);
+}  
+
 int encoder()
 {
   static int w;
@@ -159,7 +165,7 @@ int encoder3()
   cs3 = 0;
   w3 = spi.write(0x0000);
   cs3 = 1;
-  w3 = w3 & 0x3FF0;
+  w3 = -(w3 & 0x3FF0);
   return w3;
 }
 
@@ -174,7 +180,7 @@ int encoder4()
   cs4 = 0;
   w4 = spi.write(0x0000);
   cs4 = 1;
-  w4 = -(w4 & 0x3FF0);
+  w4 = w4 & 0x3FF0;
   return w4;
 }
 
@@ -182,7 +188,7 @@ void task_sent() {
   imu.readimu();
   //pc.printf("\nAcce  %.2f\t%.2f\t%.2f\tGyro  %d \t%d\t%d\tMag  %.2f\t \t%.2f\t \t%.2f\ttemp %.2f", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
   //pc.printf("%.2f,%.2f,%.2f,%d,%d,%d,%.2f,%.2f,%.2f,%.2f\n", imu.ax, imu.ay, imu.az, int(imu.gx), int(imu.gy), int(imu.gz),imu.mx,imu.my,imu.mz, (imu.readTempData() / 100.00));
-  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180));
+  pc.printf("#%.2f,%.2f,%.2f,%d,%d,%d#\n", imu.ax*G, imu.ay*G, imu.az*G, int(imu.gx*PI/180), int(imu.gy*PI/180), int(imu.gz*PI/180)); // output 2
 }
 
 int main()
@@ -192,7 +198,7 @@ int main()
   
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   // pc.printf("I AM 0x%x\n\r", whoami);
-  if (whoami == 0x73) // WHO_AM_I should always be 0x73
+  if (whoami == 0x71) // WHO_AM_I should always be 0x73
   {
     wait_ms(10.0);
     imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
@@ -226,7 +232,7 @@ int main()
   timer_slow.start();
   IMU_timer.start();
 
-  char command[15];
+  char command[15] ;
   int ang1 = 0;
   int ang2 = 0;
   int ang12 = 0;
@@ -261,7 +267,7 @@ int main()
     pc.scanf("%s", command);
     float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
     float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
+    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
     if (command[0] == '-'){
         Vx=-Vx;
       }
@@ -280,7 +286,7 @@ int main()
     // pc.printf("%s\n",command);
     float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
     float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'7'));
+    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
     if (command[0] == '-'){
         Vx=-Vx;
       }
@@ -293,6 +299,27 @@ int main()
     GO(Vx,Vy,Wz);
     continue;
     }
+
+
+    // if (bluetooth.readable()) {
+    // bluetooth.scanf("%s", command);
+    // pc.printf("%s",command);
+    // float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+    // float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+    // float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
+    // if (command[0] == '-'){
+    //     Vx=-Vx;
+    //   }
+    // if (command[4] == '-'){
+    //     Vy=-Vy;
+    //   }
+    // if (command[8] == '-'){
+    //     Wz=-Wz;
+    //   }
+    // GO2(Vx,Vy,Wz);
+    // continue;
+    // }
+
 
     if (IMU_timer.read()>=0.1){
       task_sent();
@@ -376,12 +403,12 @@ int main()
 
       Velocity = (W*radius*2*PI)/60;
       //distance = distance + (Velocity*time);
-      // pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
-      pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O);
+      pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
+      pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O); // output 1 
       t.reset();
       double eiei_output1 = timer_slow.read();
       timer_slow.reset();
       continue;
     }
   }
-}
+}s

@@ -71,7 +71,7 @@ int encoder3()
   cs3 = 0;
   w3 = spi.write(0x0000);
   cs3 = 1;
-  w3 = w3 & 0x3FF0;
+  w3 = -(w3 & 0x3FF0);
   //w=w/2;
  // pc.printf("%X\n", w3);
   return w3;
@@ -89,7 +89,7 @@ int encoder4()
   cs4 = 0;
   w4 = spi.write(0x0000);
   cs4 = 1;
-  w4 = -(w4 & 0x3FF0);
+  w4 = w4 & 0x3FF0;
   //w=w/2;
   //pc.printf("%X\n", x);
   return w4;
