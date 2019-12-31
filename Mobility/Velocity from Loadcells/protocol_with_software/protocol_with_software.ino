@@ -74,7 +74,6 @@ HX711 scale8(DOUT8, CLK8);
 #define angle2 pi/4
 #define angle3 pi/4
 #define angle4 pi/4
-
 // Max kg.->50Kg
 // upper limit kg -> 50Kg
 // weight interval =[0,50]
