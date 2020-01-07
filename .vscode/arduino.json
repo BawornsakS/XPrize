@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:mega",
+    "programmer": "AVRISP mkII",
+    "port": "COM7",
+    "sketch": "Mobility\\Velocity from Loadcells\\Loadcells\\Loadcells.ino",
+    "configuration": "cpu=atmega2560"
+}
