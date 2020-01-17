@@ -35,7 +35,6 @@ def on_message(client, userdata,msg):
     print(theta)
     datain = list(ser.read(7))
     dataout = addTheta(datain,theta)
-    # print("balloon")
     client.publish("FIBO/MQTT", dataout)
     print(datain)
 
