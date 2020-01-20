@@ -2,7 +2,7 @@ import serial
 import paho.mqtt.client as mqtt
 from math import atan2 , sqrt , degrees
 
-host = "192.168.99.41"
+host = "192.168.99.35"
 port = 1883
 ser = serial.Serial(port ='COM3',baudrate = 1000000,timeout = 0.01 )
 
@@ -31,12 +31,12 @@ def on_connect(self, client, userdata, rc):
 def on_message(client, userdata,msg):
     q = msg.payload.decode("utf-8", "strict") 
     q = str(q).split(",")
+    print(q)
     theta = yaw_for_robot(float(q[0]),float(q[1]),float(q[2]),float(q[3]))
-    print(theta)
     datain = list(ser.read(7))
+    print(datain)
     dataout = addTheta(datain,theta)
     client.publish("FIBO/MQTT", dataout)
-    print(datain)
 
 client = mqtt.Client()
 client.on_connect = on_connect
