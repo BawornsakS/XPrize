@@ -31,9 +31,8 @@ def on_connect(self, client, userdata, rc):
 def on_message(client, userdata,msg):
     q = msg.payload.decode("utf-8", "strict") 
     q = str(q).split(",")
-    print(q)
     theta = yaw_for_robot(float(q[0]),float(q[1]),float(q[2]),float(q[3]))
-    datain = list(ser.read(7))
+    datain = ser.read(7)
     print(datain)
     dataout = addTheta(datain,theta)
     client.publish("FIBO/MQTT", dataout)

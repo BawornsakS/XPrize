@@ -18,6 +18,9 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('127.0.0.1', 5001)
 print('connecting to {} port {}'.format(*server_address))
 sock.connect(server_address)
+Send = sock.sendall("8 100 100 #".encode())
+received = sock.recv(4096)
+print('received {!r}'.format(received))
 
 def on_connect(self, client, userdata, rc):
     print("MQTT Connected.")
