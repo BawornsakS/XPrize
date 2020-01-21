@@ -32,7 +32,7 @@ Timer IMU_timer;
 Timer t;
 float dt_kaman = 0;
 Timer t_kaman;
-int covariance = 1.07195;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
+int covariance = 1.0718;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
 float Rk = 0.0; // covariance of w
 float mean_w =0.0;
 float amount_w=0.0;
@@ -140,19 +140,19 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
       BackRB=0;
       BRWheel.write(0);
     }
-  }
+  } 
 
 void GO2(float Vx=0.00,float Vy=0.00,float Wz=0.00){ 
     Wz = Wz - 180.00;
     //while(orientation<0) orientation += 360;
-    float a = (Wz - ( orientation* -1.00 ));
+    float a = (-Wz - ( orientation ));
     if(a<-180)a+=360;
     if(a>180)a-=360;
     float error_trata = ((a)*PI) /180;
     float error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180.00 / PI;
-    float Wz2 = error_trata2 * 1.2;// มุม
-    pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\n",Wz,((orientation*PI)/180.00),error_trata,error_trata2,Wz2);
-    GO(0,0,-Wz2);
+    float Wz2 = (error_trata2 * 4);// มุม
+    pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\n",-Wz,(orientation),error_trata,error_trata2,Wz2);
+    GO(Vx,Vy,Wz2);
 }  
 
 int encoder()
