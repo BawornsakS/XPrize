@@ -56,9 +56,14 @@ Matrix Re_P(2,2);
 #define G 9.782970341
 int radius = 49;//mm
 int Velocity = 0;
-int16_t Vx;
-int16_t Vy;
-int16_t Wz;
+int16_t Vx =0;
+int16_t Vy =0;
+int16_t Wz =0;
+int16_t Vx1 =0;
+int16_t Vy1=0;
+int16_t Wz1 =0;
+float integral_error = 0;
+float error_before = 0;
 float distances = 0;
 float distanceX  = 0;
 float distanceY = 0;
@@ -142,18 +147,6 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
     }
   } 
 
-void GO2(float Vx=0.00,float Vy=0.00,float Wz=0.00){ 
-    Wz = Wz - 180.00;
-    //while(orientation<0) orientation += 360;
-    float a = (-Wz - ( orientation ));
-    if(a<-180)a+=360;
-    if(a>180)a-=360;
-    float error_trata = ((a)*PI) /180;
-    float error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180.00 / PI;
-    float Wz2 = (error_trata2 * 4);// มุม
-    pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\n",-Wz,(orientation),error_trata,error_trata2,Wz2);
-    GO(Vx,Vy,Wz2);
-}  
 
 int encoder()
 {
@@ -377,7 +370,6 @@ int main()
             Vx = getvalue(command[0]);
             Vy = getvalue(command[1]);
             Wz = getvalue(command[2],true);
-            GO2(Vx,Vy,Wz);
             //pc.printf("%d   %d   %d\n",Vx,Vy,Wz);  ปริ้น 5
           }
         }
@@ -502,6 +494,23 @@ int main()
       // pc.printf("\n");
       //pc.printf("%f\n",orientation);
       //pc.printf("%f     %f\n",W_now,X_estimate_k.getNumber(1,1));
+      float Wz_in = Wz;
+    Wz_in = Wz_in - 180.00;
+    //while(orientation<0) orientation += 360;
+    float a = (-Wz_in - ( orientation ));
+    if(a<-180)a+=360;
+    if(a>180)a-=360;
+    float error_trata = ((a)*PI) /180;
+    float error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180.00 / PI;
+    integral_error = integral_error + (error_trata2 * (dt_kaman));
+    float diff = (error_trata2 - error_before)/(dt_kaman);
+    float Wz2 = (error_trata2 * 3.5)  + (integral_error * 1) + (diff * 1); //มุม
+    error_before = error_trata2;
+    pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\t%f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
+    GO(0,0,Wz2);
+
+
+
     }
     
     if (IMU_timer.read()>=0.1){
@@ -574,10 +583,10 @@ int main()
       W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
       W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
 
-      Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
-      Vx = (W + W2 + W3 + W4) * radius/4;
-      Wz = (W2+W4-W-W3)*radius/(4*280);
-      O = O + (Wz*time/1000.000000000);
+      Vy1 = (W2 + W3 - W - W4) * radius/4;//mm/s
+      Vx1 = (W + W2 + W3 + W4) * radius/4;
+      Wz1 = (W2+W4-W-W3)*radius/(4*280);
+      O = O + (Wz1*time/1000.000000000);
 
       float VposX =Vx*cos(O) - Vy*sin(O);
       float VposY = Vy*cos(O) + Vx*sin(O);

@@ -131,22 +131,26 @@ void loop()
     float data8 = float(get_units_kg8() - offset8);
     Magnitude(data1, data2, data3, data4, data5, data6, data7, data8); // find sumx sumy
 
-//    Serial.print(String(time_now) + "\t");
-//    Serial.print(String(data1) + "\t" + String(data2) + "\t" + String(data3) + "\t" + String(data4) + "\t" + String(data5) + "\t" + String(data6) + "\t" + String(data7) + "\t" + String(data8));
-//    Serial.println("\t\t" + String(sumx) + " " + String(sumy));
+    //    Serial.print(String(time_now) + "\t");
+    //    Serial.print(String(data1) + "\t" + String(data2) + "\t" + String(data3) + "\t" + String(data4) + "\t" + String(data5) + "\t" + String(data6) + "\t" + String(data7) + "\t" + String(data8));
+    //    Serial.println("\t\t" + String(sumx) + " " + String(sumy));
 
-    byte buffers[7];
-    int int_x = sumx;
-    int int_y = sumy;
-
-    buffers[0] = 0xFF;
-    buffers[1] = 0xFF;
-    buffers[2] = int_x >> 8;
-    buffers[3] = int_x % 256;
-    buffers[4] = int_y >> 8;
-    buffers[5] = int_y % 256;
-    buffers[6] = (buffers[2] + buffers[3] + buffers[4] + buffers[5]) % 256;
-    Serial.write(buffers, 7);
+    //    byte buffers[7];
+    int int_x = sumx+2000;
+    int int_y = sumy+2000;
+    
+    long buffers = 0;
+    buffers = (buffers << 12) | int_x;
+    buffers = (buffers << 12) | int_y;
+    buffers = (buffers << 2) | ((int_x + int_y) % 4);
+    //    buffers[0] = 0xFF;
+    //    buffers[1] = 0xFF;
+    //    buffers[2] = int_x >> 8;
+    //    buffers[3] = int_x % 256;
+    //    buffers[4] = int_y >> 8;
+    //    buffers[5] = int_y % 256;
+    //    buffers[6] = (buffers[2] + buffers[3] + buffers[4] + buffers[5]) % 256;
+    Serial.write(buffers);
   }
 }
 
