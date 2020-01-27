@@ -4,7 +4,6 @@ from math import atan2 , sqrt , degrees
 host = "192.168.99.35"
 port = 1883
 
-
 def addTheta(oldByte,theta):
     oldByte = list(oldByte)
     oldCheckSum = oldByte.pop()
@@ -34,7 +33,7 @@ def on_message(client, userdata,msg):
     theta = yaw_for_robot(float(q[0]),float(q[1]),float(q[2]),float(q[3]))
     datain = [255,255,0,0,0,0,0]
     dataout = addTheta(datain,theta)
-    print((dataout))
+    print(theta)
     client.publish("FIBO/MQTT", dataout)
 
 client = mqtt.Client()

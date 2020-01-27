@@ -5,7 +5,7 @@ from math import atan2 , sqrt , degrees
 host = "192.168.99.35"
 port = 1883
 ser = serial.Serial(port ='COM3',baudrate = 1000000,timeout = 0.01 )
-
+datain = []
 def addTheta(oldByte,theta):
     oldCheckSum = oldByte.pop()
     theta2 = round(abs(theta*10))
@@ -26,16 +26,19 @@ def yaw_for_robot(x,y,z,w):
 
 def on_connect(self, client, userdata, rc):
     print("MQTT Connected.")
-    self.subscribe("/operator/head/rotation")
+    self.subscribe("Balloon")
     
 def on_message(client, userdata,msg):
-    q = msg.payload.decode("utf-8", "strict") 
-    q = str(q).split(",")
-    theta = yaw_for_robot(float(q[0]),float(q[1]),float(q[2]),float(q[3]))
-    datain = ser.read(7)
-    print(datain)
-    dataout = addTheta(datain,theta)
-    client.publish("FIBO/MQTT", dataout)
+    # q = msg.payload.decode("utf-8", "strict") 
+    # q = str(q).split(",")
+    #theta = yaw_for_robot(float(q[0]),float(q[1]),float(q[2]),float(q[3]))
+    if(ser.in_waiting>0):
+        datain = list(ser.read(4))
+
+    if datain != []:
+        dataout = addTheta(datain,180)
+        print(dataout)
+        client.publish("lukkid", dataout)
 
 client = mqtt.Client()
 client.on_connect = on_connect
