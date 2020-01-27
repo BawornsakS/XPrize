@@ -47,7 +47,7 @@ Matrix X_predict_k0(2, 1);
 Matrix X_predict_k1(2, 1);
 Matrix X_estimate_k(2, 1);
 
-Matrix P_predict_k0(2,2);  /// ลองเอาการกำหนดมิติบางตัวออก
+Matrix P_predict_k0(2,2);  
 Matrix P_predict_k1(2,2);
 Matrix P_estimate_k(2, 2);
 Matrix K;
@@ -62,6 +62,8 @@ int16_t Wz =0;
 int16_t Vx1 =0;
 int16_t Vy1=0;
 int16_t Wz1 =0;
+int16_t Vx_Front =0;
+int16_t Vy_Side =0;
 float integral_error = 0;
 float error_before = 0;
 float distances = 0;
@@ -327,52 +329,48 @@ int main()
   theta_now =0.0;
   t_kaman.start();
   t.start();
-
+////////////   ทิศรถ //////////////////
+//         ด้านหน้าหัน เข้า ม่านสีดำ ครับ ///
   while (1)
   {
     time = t.read_ms();
     timer_slow.reset();
     
     if (bluetooth.readable()) {
-      
-      // pc.printf("Karn\n");
-      //pc.scanf("%s", command);
-      // float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
-      // float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-      // float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
-      int16_t receive_start = (bluetooth.getc());
-      // if(receive_start!=0)pc.printf("%X\n",receive_start);
-      if(receive_start == 0xFF){
-        
-        while (!bluetooth.readable());
-        int16_t receive_start2 = (bluetooth.getc());
-        // receive_start = (int16_t) receive_start<<8|(int16_t)receive_start2;
-        // if(receive_start!=0)pc.printf("%X\n",receive_start);
-        // if(receive_start!=0)pc.printf("%X  %X\n",receive_start<<8,receive_start<<8|receive_start2);
-        
-        
-        if(receive_start2 == 0xFF){
-          
-          int16_t command[3][2];
-          int calculated_checksum = 0;
-          for(int i=0;i<3;i++){
-            while (!bluetooth.readable());
-            command[i][0] = bluetooth.getc();
-            while (!bluetooth.readable());
-            command[i][1] = bluetooth.getc();
-            calculated_checksum = (calculated_checksum + command[i][0] +  command[i][1])%256; // เอาhigh + low  แล้ว เอาbyteหลังสุด
-            
-          }
+      int8_t receive_start = (bluetooth.getc());
+
+      //pc.printf("%x\n",receive_start);  
+      if(!(receive_start & 0xF8)){
+        long long buffers = 0;
+
+        int16_t calculated_checksum = 0;
+
+        buffers |= receive_start;
+        for (int i = 0; i < 4; i++)
+        {
           while (!bluetooth.readable());
-          
-          if(calculated_checksum == bluetooth.getc()){
-            //pc.printf("Karn\n");
-            Vx = getvalue(command[0]);
-            Vy = getvalue(command[1]);
-            Wz = getvalue(command[2],true);
-            //pc.printf("%d   %d   %d\n",Vx,Vy,Wz);  ปริ้น 5
-          }
+          buffers = (buffers << 8) | bluetooth.getc();   
+          //pc.printf("%llx\n",buffers); 
         }
+
+        int16_t pre_Vy = (buffers >> 11) & 0x0FFF;
+        int16_t pre_Vx = (buffers >> 23) & 0x0FFF;
+        Wz = (buffers >> 2) & 0x01FF; 
+        
+
+        // calculated_checksum = (pre_Vy+pre_Vx) % 4;
+        
+        // pc.printf("%d %d\n",calculated_checksum, buffers[1] & 0x03);
+
+        // if (!(calculated_checksum - (buffers[1] & 0x03)))
+        // {
+          Vy = pre_Vy - 2000; // แก้ไข offset จากที่ส่งเป็น range 0 to 4000 เป็น -2000 to 2000
+          Vx = pre_Vx - 2000;
+          //Wz = 0;
+          pc.printf("%d %d %d\n",Vx,Vy,Wz);
+          //GO(Vx,Vy,0);
+        // }
+
       }
       continue;
     }
@@ -506,10 +504,14 @@ int main()
     float diff = (error_trata2 - error_before)/(dt_kaman);
     float Wz2 = (error_trata2 * 3.5)  + (integral_error * 1) + (diff * 1); //มุม
     error_before = error_trata2;
-    pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\t%f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
-    GO(0,0,Wz2);
+    //pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\t%f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
 
-
+    /* move and Rotate */
+    Vx_Front = (Vx * cos(Wz-180)) - (Vy * sin(Wz-180));
+    Vy_Side  = (Vx * sin(Wz-180)) + (Vy * cos(Wz-180));
+    //GO(Vx,Vy,0);
+    GO(Vx_Front,Vy_Side,Wz2);
+    //pc.printf("\t%f\t%f\t%f\n",Vx_Front,Vy_Side);
 
     }
     
