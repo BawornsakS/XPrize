@@ -9,25 +9,32 @@ print('connecting to {} port {}'.format(*server_address))
 sock.connect(server_address)
 
 Mode = "1"
-Xl_pos = "16"
-Yl_pos = -480
+Xl_pos = 16
+Yl_pos = "-480"
 Zl_pos = "125"
 qW = "0.08246"
 qX = "-0.69108"
 qY = "0.71705"
 qZ = "0.03814"
-Send = sock.sendall("8 100 100 #".encode())
+
+Set_Velocity = "8 100 100 #".encode()
+Set_Start = "2 0 -130 30 0 40 0 -135 #".encode()
+
+Send = sock.sendall(Set_Velocity)
 received = sock.recv(4096)
 print('received {!r}'.format(received))
-while(1):
-    message = " ".join([str(Mode),str(Xl_pos),str(Yl_pos),str(Zl_pos),str(qW),str(qX),str(qY),str(qZ),"#"]).encode()
-    print(message)
-    Send = sock.sendall(message)
-    print(Send)
-    received = sock.recv(4096)
-    Yl_pos += 10
-    print('received {!r}'.format(received))
-    time.sleep(1)
+Send = sock.sendall(Set_Start)
+received = sock.recv(4096)
+print('received {!r}'.format(received))
+# while(1):
+#     message = " ".join([str(Mode),str(Xl_pos),str(Yl_pos),str(Zl_pos),str(qW),str(qX),str(qY),str(qZ),"#"]).encode()
+#     print(message)
+#     Send = sock.sendall(message)
+#     print(Send)
+#     received = sock.recv(4096)
+#     print('received {!r}'.format(received))
+#     Xl_pos += 10
+#     time.sleep(0.3)
 
 
 

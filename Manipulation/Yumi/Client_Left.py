@@ -16,17 +16,22 @@ qW = "0.14"
 qX = "-0.19"
 qY = "-0.98"
 qZ = "-0.01"
-Send = sock.sendall("8 100 100 #".encode())
+Send = sock.sendall("8 1000 1000 #".encode())
 received = sock.recv(4096)
 print('received {!r}'.format(received))
-while(1):
-    message = " ".join([str(Mode),str(Xl_pos),str(Yl_pos),str(Zl_pos),str(qW),str(qX),str(qY),str(qZ),"#"]).encode()
-    print(message)
-    Send = sock.sendall(message)
-    print(Send)
-    received = sock.recv(4096)
-    print('received {!r}'.format(received))
-    time.sleep(1)
+Send = sock.sendall("2 0 -130 30 0 40 0 135 #".encode())
+received = sock.recv(4096)
+# Send = sock.sendall("1 500 184 171 1 0 0 0 #".encode())
+# received = sock.recv(4096)
+# print('received {!r}'.format(received))
+# while(1):
+#     message = " ".join([str(Mode),str(Xl_pos),str(Yl_pos),str(Zl_pos),str(qW),str(qX),str(qY),str(qZ),"#"]).encode()
+#     print(message)
+#     Send = sock.sendall(message)
+#     print(Send)
+#     received = sock.recv(4096)
+#     print('received {!r}'.format(received))
+
 
 
 
