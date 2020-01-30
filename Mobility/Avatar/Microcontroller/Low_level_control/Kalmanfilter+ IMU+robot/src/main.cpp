@@ -32,7 +32,7 @@ Timer IMU_timer;
 Timer t;
 float dt_kaman = 0;
 Timer t_kaman;
-int covariance = 1.0718;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
+int covariance = 1.07174;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
 float Rk = 0.0; // covariance of w
 float mean_w =0.0;
 float amount_w=0.0;
@@ -71,7 +71,7 @@ float distanceX  = 0;
 float distanceY = 0;
 float O = 0;
 int dt = 100;
-
+int if_datacome =0;
 
 void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
   float FL=0;
@@ -342,7 +342,7 @@ int main()
       //pc.printf("%x\n",receive_start);  
       if(!(receive_start & 0xF8)){
         long long buffers = 0;
-
+        if_datacome = 1;
         int16_t calculated_checksum = 0;
 
         buffers |= receive_start;
@@ -367,7 +367,7 @@ int main()
           Vy = pre_Vy - 2000; // แก้ไข offset จากที่ส่งเป็น range 0 to 4000 เป็น -2000 to 2000
           Vx = pre_Vx - 2000;
           //Wz = 0;
-          pc.printf("%d %d %d\n",Vx,Vy,Wz);
+          //pc.printf("%d\t %d\t %d\t\n",Vx,Vy,Wz);
           //GO(Vx,Vy,0);
         // }
 
@@ -492,8 +492,10 @@ int main()
       // pc.printf("\n");
       //pc.printf("%f\n",orientation);
       //pc.printf("%f     %f\n",W_now,X_estimate_k.getNumber(1,1));
-      float Wz_in = Wz;
-    Wz_in = Wz_in - 180.00;
+      int Wz_in = Wz;
+      if(if_datacome == 1){
+        Wz_in -= 180.00;
+      }
     //while(orientation<0) orientation += 360;
     float a = (-Wz_in - ( orientation ));
     if(a<-180)a+=360;
@@ -507,11 +509,14 @@ int main()
     //pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\t%f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
 
     /* move and Rotate */
-    Vx_Front = (Vx * cos(Wz-180)) - (Vy * sin(Wz-180));
-    Vy_Side  = (Vx * sin(Wz-180)) + (Vy * cos(Wz-180));
+    
+      //Vx_Front = (-Vy * cos((Wz_in * PI)/180)) - (Vx * sin((Wz_in*PI)/180));
+      //Vy_Side  = (-Vy * sin((Wz_in * PI)/180)) + (Vx * cos((Wz_in * PI)/180));
+      Vx_Front = (Vx * cos((Wz_in * PI)/180)) - (Vy * sin((Wz_in*PI)/180));
+      Vy_Side  = (Vx * sin((Wz_in * PI)/180)) + (Vy * cos((Wz_in * PI)/180));
     //GO(Vx,Vy,0);
     GO(Vx_Front,Vy_Side,Wz2);
-    //pc.printf("\t%f\t%f\t%f\n",Vx_Front,Vy_Side);
+    pc.printf("\t%d\t%d\t%d\n",Vx_Front,Vy_Side,Wz_in);
 
     }
     
