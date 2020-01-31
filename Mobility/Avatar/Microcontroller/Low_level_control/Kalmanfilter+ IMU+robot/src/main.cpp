@@ -32,7 +32,7 @@ Timer IMU_timer;
 Timer t;
 float dt_kaman = 0;
 Timer t_kaman;
-int covariance = 1.07174;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
+int covariance = 1.0718;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
 float Rk = 0.0; // covariance of w
 float mean_w =0.0;
 float amount_w=0.0;
@@ -54,7 +54,7 @@ Matrix K;
 Matrix Re_P(2,2);
 #define PI 3.141592
 #define G 9.782970341
-int radius = 49;//mm
+int radius = 51;//mm
 int Velocity = 0;
 int16_t Vx =0;
 int16_t Vy =0;
@@ -78,10 +78,10 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
   float FR=0;
   float BL=0;
   float BR=0;
-    FL=(Vx - Vy + (Wz*(-0.28)))/200.0; 
-    FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
-    BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
-    BR =(Vx - Vy + (Wz*(0.28)))/200.0;
+    FL=(Vx - Vy + (Wz*(-0.77)))/200.0;  // 0.28 sum xy จากหลางล้อ ถึง origin
+    FR =(Vx + Vy + (Wz*(0.77)))/200.0;  // รถใหม่ 0.77472 m.
+    BL =(Vx + Vy + (Wz*(-0.77)))/200.0; 
+    BR =(Vx - Vy + (Wz*(0.77)))/200.0;
     // pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
     if (FL>0){
