@@ -46,11 +46,12 @@ void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
   float FR=0;
   float BL=0;
   float BR=0;
-    FL=(Vx - Vy + (Wz*(-0.28)))/200.0; 
+    FL =(Vx - Vy + (Wz*(-0.28)))/200.0; 
     FR =(Vx + Vy + (Wz*(0.28)))/200.0; 
     BL =(Vx + Vy + (Wz*(-0.28)))/200.0; 
     BR =(Vx - Vy + (Wz*(0.28)))/200.0;
-    // pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
+
+     pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
   
     if (FL>0){
       FrontLF=1;
@@ -194,28 +195,28 @@ void task_sent() {
 int main()
 {
   wait(2);
-  GO(0.00,0.00,0.00);
+  GO(0.0,0.00,0.00);
   
-  uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
-  // pc.printf("I AM 0x%x\n\r", whoami);
-  if (whoami == 0x71) // WHO_AM_I should always be 0x73
-  {
-    wait_ms(10.0);
-    imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
-    imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
-    imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
-    wait_ms(20.0);
-    imu.initMPU9250();
-    imu.initAK8963(imu.magCalibration);
-    wait_ms(10.0);
-  }
-  else
-  {
-    while (1); // Loop forever if communication doesn't happen
-  }
-  imu.getAres(); // Get accelerometer sensitivity
-  imu.getGres(); // Get gyro sensitivity
-  imu.getMres(); // Get magnetometer sensitivity
+  // uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
+  // // pc.printf("I AM 0x%x\n\r", whoami);
+  // if (whoami == 0x71) // WHO_AM_I should always be 0x73
+  // {
+  //   wait_ms(10.0);
+  //   imu.resetMPU9250();            // Reset registers to default in preparation for device calibration
+  //   imu.MPU9250SelfTest(SelfTest); // Start by performing self test and reporting values
+  //   imu.calibrateMPU9250(imu.gyroBias, imu.accelBias); // Calibrate gyro and accelerometers, load biases in bias registers
+  //   wait_ms(20.0);
+  //   imu.initMPU9250();
+  //   imu.initAK8963(imu.magCalibration);
+  //   wait_ms(10.0);
+  // }
+  // else
+  // {
+  //   while (1); // Loop forever if communication doesn't happen
+  // }
+  // imu.getAres(); // Get accelerometer sensitivity
+  // imu.getGres(); // Get gyro sensitivity
+  // imu.getMres(); // Get magnetometer sensitivity
 
   FLWheel.write(0);
   FRWheel.write(0);
@@ -261,154 +262,155 @@ int main()
 
   while (1)
   {
-  time = t.read_ms();
-  timer_slow.reset();
-  if (pc.readable()) {
-    pc.scanf("%s", command);
-    float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
-    float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
-    if (command[0] == '-'){
-        Vx=-Vx;
-      }
-    if (command[4] == '-'){
-        Vy=-Vy;
-      }
-    if (command[8] == '-'){
-        Wz=-Wz;
-      }
-    GO(Vx,Vy,Wz);
-    continue;
-    }
+    GO(100,0,0);
+  // time = t.read_ms();
+  // timer_slow.reset();
+  // if (pc.readable()) {
+  //   pc.scanf("%s", command);
+  //   float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+  //   float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+  //   float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
+  //   if (command[0] == '-'){
+  //       Vx=-Vx;
+  //     }
+  //   if (command[4] == '-'){
+  //       Vy=-Vy;
+  //     }
+  //   if (command[8] == '-'){
+  //       Wz=-Wz;
+  //     }
+  //   GO(Vx,Vy,Wz);
+  //   continue;
+  //   }
 
-  if (bluetooth.readable()) {
-    bluetooth.scanf("%s", command);
-    // pc.printf("%s\n",command);
-    float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
-    float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-    float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
-    if (command[0] == '-'){
-        Vx=-Vx;
-      }
-    if (command[4] == '-'){
-        Vy=-Vy;
-      }
-    if (command[8] == '-'){
-        Wz=-Wz;
-      }
-    GO(Vx,Vy,Wz);
-    continue;
-    }
-
-
-    // if (bluetooth.readable()) {
-    // bluetooth.scanf("%s", command);
-    // pc.printf("%s",command);
-    // float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
-    // float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
-    // float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
-    // if (command[0] == '-'){
-    //     Vx=-Vx;
-    //   }
-    // if (command[4] == '-'){
-    //     Vy=-Vy;
-    //   }
-    // if (command[8] == '-'){
-    //     Wz=-Wz;
-    //   }
-    // GO2(Vx,Vy,Wz);
-    // continue;
-    // }
+  // if (bluetooth.readable()) {
+  //   bluetooth.scanf("%s", command);
+  //   // pc.printf("%s\n",command);
+  //   float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+  //   float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+  //   float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
+  //   if (command[0] == '-'){
+  //       Vx=-Vx;
+  //     }
+  //   if (command[4] == '-'){
+  //       Vy=-Vy;
+  //     }
+  //   if (command[8] == '-'){
+  //       Wz=-Wz;
+  //     }
+  //   GO(Vx,Vy,Wz);
+  //   continue;
+  //   }
 
 
-    if (IMU_timer.read()>=0.1){
-      task_sent();
-      double eiei_output2 = timer_slow.read();
-      timer_slow.reset();
-      // pc.printf("\t\t\t time: %f\n",eiei_output2);
-      IMU_timer.reset();
-      continue;
-    }
-    if(time == 0)
-    {
-      ang1 = encoder();
-      ang12 = encoder2();
-      ang13 = encoder3();
-      ang14 = encoder4();
-      continue;
-    }
+  //   // if (bluetooth.readable()) {
+  //   // bluetooth.scanf("%s", command);
+  //   // pc.printf("%s",command);
+  //   // float Vx = (((command[1]-'0')*100)+((command[2]-'0')*10)+(command[3]-'0'));
+  //   // float Vy = (((command[5]-'0')*100)+((command[6]-'0')*10)+(command[7]-'0'));
+  //   // float Wz = (((command[9]-'0')*100)+((command[10]-'0')*10)+(command[11]-'0'));
+  //   // if (command[0] == '-'){
+  //   //     Vx=-Vx;
+  //   //   }
+  //   // if (command[4] == '-'){
+  //   //     Vy=-Vy;
+  //   //   }
+  //   // if (command[8] == '-'){
+  //   //     Wz=-Wz;
+  //   //   }
+  //   // GO2(Vx,Vy,Wz);
+  //   // continue;
+  //   // }
 
-    else if(time >= dt)
-    {
-      ang2 = encoder();
-      ang22 = encoder2();
-      ang23 = encoder3();
-      ang24 = encoder4();
 
-      diff = ang2-ang1;
-      diff2 = ang22-ang12;
-      diff3 = ang23-ang13;
-      diff4 = ang24-ang14;
+  //   if (IMU_timer.read()>=0.1){
+  //     task_sent();
+  //     double eiei_output2 = timer_slow.read();
+  //     timer_slow.reset();
+  //     // pc.printf("\t\t\t time: %f\n",eiei_output2);
+  //     IMU_timer.reset();
+  //     continue;
+  //   }
+  //   if(time == 0)
+  //   {
+  //     ang1 = encoder();
+  //     ang12 = encoder2();
+  //     ang13 = encoder3();
+  //     ang14 = encoder4();
+  //     continue;
+  //   }
 
-      if(diff > 16384/2)
-      {
-        diff = diff - 16384;
-      }
-      if(diff < -16384/2)
-      {
-        diff = (16384 + diff);
-      }
+  //   else if(time >= dt)
+  //   {
+  //     ang2 = encoder();
+  //     ang22 = encoder2();
+  //     ang23 = encoder3();
+  //     ang24 = encoder4();
 
-      if(diff2 > 16384/2)
-      {
-        diff2 = diff2 - 16384;
-      }
-      if(diff2 < -16384/2)
-      {
-        diff2 = (16384 + diff2);
-      }
+  //     diff = ang2-ang1;
+  //     diff2 = ang22-ang12;
+  //     diff3 = ang23-ang13;
+  //     diff4 = ang24-ang14;
 
-      if(diff3 > 16384/2)
-      {
-        diff3 = diff3 - 16384;
-      }
-      if(diff3 < -16384/2)
-      {
-        diff3 = (16384 + diff3);
-      }
+  //     if(diff > 16384/2)
+  //     {
+  //       diff = diff - 16384;
+  //     }
+  //     if(diff < -16384/2)
+  //     {
+  //       diff = (16384 + diff);
+  //     }
 
-      if(diff4 > 16384/2)
-      {
-        diff4 = diff4 - 16384;
-      }
-      if(diff4 < -16384/2)
-      {
-        diff4 = (16384 + diff4);
-      }
+  //     if(diff2 > 16384/2)
+  //     {
+  //       diff2 = diff2 - 16384;
+  //     }
+  //     if(diff2 < -16384/2)
+  //     {
+  //       diff2 = (16384 + diff2);
+  //     }
 
-      W = (diff*1000*2*PI)/(8192*3*time);//rad/s
-      W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
-      W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
-      W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
+  //     if(diff3 > 16384/2)
+  //     {
+  //       diff3 = diff3 - 16384;
+  //     }
+  //     if(diff3 < -16384/2)
+  //     {
+  //       diff3 = (16384 + diff3);
+  //     }
 
-      Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
-      Vx = (W + W2 + W3 + W4) * radius/4;
-      Wz = (W2+W4-W-W3)*radius/(4*280);
-      O = O + (Wz*time/1000.000000000);
+  //     if(diff4 > 16384/2)
+  //     {
+  //       diff4 = diff4 - 16384;
+  //     }
+  //     if(diff4 < -16384/2)
+  //     {
+  //       diff4 = (16384 + diff4);
+  //     }
 
-      float VposX =Vx*cos(O) - Vy*sin(O);
-      float VposY = Vy*cos(O) + Vx*sin(O);
-      distanceX = distanceX + (VposX*time/1000000.00000000);
-      distanceY = distanceY + (VposY*time/1000000.00000000);
+  //     W = (diff*1000*2*PI)/(8192*3*time);//rad/s
+  //     W2 = (diff2*1000*2*PI)/(8192*3*time);//rpm
+  //     W3 = (diff3*1000*2*PI)/(8192*3*time);//rpm
+  //     W4 = (diff4*1000*2*PI)/(8192*3*time);//rpm
 
-      Velocity = (W*radius*2*PI)/60;
-      //distance = distance + (Velocity*time);
-      pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
-      pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O); // output 1 
-      t.reset();
-      double eiei_output1 = timer_slow.read();
-      timer_slow.reset();
-      continue;
-    }
+  //     Vy = (W2 + W3 - W - W4) * radius/4;//mm/s
+  //     Vx = (W + W2 + W3 + W4) * radius/4;
+  //     Wz = (W2+W4-W-W3)*radius/(4*280);
+  //     O = O + (Wz*time/1000.000000000);
+
+  //     float VposX =Vx*cos(O) - Vy*sin(O);
+  //     float VposY = Vy*cos(O) + Vx*sin(O);
+  //     distanceX = distanceX + (VposX*time/1000000.00000000);
+  //     distanceY = distanceY + (VposY*time/1000000.00000000);
+
+  //     Velocity = (W*radius*2*PI)/60;
+  //     //distance = distance + (Velocity*time);
+  //     pc.printf("\t\t\t\t\t\t\t%d,%d,%d,%d\t\t\t",W,W2,W3,W4);
+  //     pc.printf("|%.5f,%.5f,%.5f|\n",distanceX,distanceY,O); // output 1 
+  //     t.reset();
+  //     double eiei_output1 = timer_slow.read();
+  //     timer_slow.reset();
+  //     continue;
+  //   }
   }
-}s
+}

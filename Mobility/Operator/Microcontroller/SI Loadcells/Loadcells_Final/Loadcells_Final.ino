@@ -2,9 +2,11 @@
 #include "HX711.h"
 
 long time_old = 0;
-int period = 50, cutoff = 5; // minimum period is 97  <------ from test
+int period = 50, cutoff = 10; // minimum period is 97  <------ from test
 
 String command_out(float);
+float convert_speed(float);
+
 float sumx = 0, sumy = 0;
 int startbit = 0xFFFF;
 byte checksum;
@@ -135,14 +137,22 @@ void loop()
     //    Serial.print(String(data1) + "\t" + String(data2) + "\t" + String(data3) + "\t" + String(data4) + "\t" + String(data5) + "\t" + String(data6) + "\t" + String(data7) + "\t" + String(data8));
     //    Serial.println("\t\t" + String(sumx) + " " + String(sumy));
 
-    //    byte buffers[7];
-    int int_x = sumx+2000;
-    int int_y = sumy+2000;
-    
+    //    byte buffers[7]; 
+    int int_x = sumx + 2000;
+    int int_y = sumy + 2000;
+
     long buffers = 0;
-    buffers = (buffers << 12) | int_x;
+    buffers = buffers | int_x;
     buffers = (buffers << 12) | int_y;
-    buffers = (buffers << 2) | ((int_x + int_y) % 4);
+    buffers = (buffers << 3) | ((int_x + int_y) % 8);
+
+    byte buf[4];
+    buf[0] = (buffers >> 24) & 255;
+    buf[1] = (buffers >> 16)  & 255;
+    buf[2] = (buffers >> 8) & 255;
+    buf[3] = buffers & 255;
+
+    Serial.write(buf, sizeof(buf));
     //    buffers[0] = 0xFF;
     //    buffers[1] = 0xFF;
     //    buffers[2] = int_x >> 8;
@@ -150,7 +160,7 @@ void loop()
     //    buffers[4] = int_y >> 8;
     //    buffers[5] = int_y % 256;
     //    buffers[6] = (buffers[2] + buffers[3] + buffers[4] + buffers[5]) % 256;
-    Serial.write(buffers);
+//    Serial.write(buffers);
   }
 }
 
@@ -158,9 +168,9 @@ void Magnitude(float L1 = 0, float L2 = 0, float L3 = 0, float L4 = 0, float L5 
 {
   float result;
   sumx = L1 + (L2 * cos(angle1)) - (L4 * cos(angle2)) - L5 - (L6 * cos(angle3) - (L8 * cos(angle4)));
-  sumx = (1 / 200 * (pow(sumx, 3)) + (3 * sumx)); //plot 1/200(x^3) + 3x  and x*7
   sumy = (-L3) - (L2 * sin(angle1)) - (L4 * sin(angle2)) + L7 + (L6 * sin(angle3) + (L8 * sin(angle4)));
-  sumy = (1 / 200 * (pow(sumy, 3)) + (3 * sumy)); //plot 1/200(x^3) + 3x  and x*7
+  sumx = convert_speed(sumx);
+  sumy = convert_speed(sumy);
   if (abs(sumx) <= cutoff)
   {
     sumx = 0;
@@ -178,6 +188,10 @@ void Magnitude(float L1 = 0, float L2 = 0, float L3 = 0, float L4 = 0, float L5 
   {
     sumy -= cutoff;
   }
+}
+
+float convert_speed(float input = 0){
+  return ((1 / 200 * (pow(input, 3)) + (3 * input))) /2;
 }
 
 void set_offset()
