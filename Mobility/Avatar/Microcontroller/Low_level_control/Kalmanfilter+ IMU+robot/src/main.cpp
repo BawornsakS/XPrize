@@ -4,7 +4,7 @@
 #include <Matrix.h>
 #include <MatrixMath.h>
 
-Serial pc(USBTX, USBRX,1000000);
+Serial pc(USBTX, USBRX,115200);
 Serial bluetooth(PA_11, PA_12 ,115200);
 SPI spi(D11, D12, D13);
 
@@ -32,7 +32,7 @@ Timer IMU_timer;
 Timer t;
 float dt_kaman = 0;
 Timer t_kaman;
-int covariance = 1.0718;//1.0718   (1.0715,1.0720) ไม่ได้     s1.072    1.0   0.146 ///1.07195   1.0  0.1451
+int covariance = 2.0;//1.0718   (5,10)
 float Rk = 0.0; // covariance of w
 float mean_w =0.0;
 float amount_w=0.0;
@@ -70,20 +70,44 @@ float distances = 0;
 float distanceX  = 0;
 float distanceY = 0;
 float O = 0;
-int dt = 100;
+int dt = 100; 
 int if_datacome =0;
+float speed_satuated=80;
+float W_temp;
+int Wz_in;
+float error_trata2;
+int update_pause=0; // pause kalman filter if error is little.
+float FL=0;
+float FR=0;
+float BL=0;
+float BR=0;
 
 void GO(float Vx=0.00,float Vy=0.00,float Wz=0.00){
-  float FL=0;
-  float FR=0;
-  float BL=0;
-  float BR=0;
-    FL=(Vx - Vy + (Wz*(-0.77)))/200.0;  // 0.28 sum xy จากหลางล้อ ถึง origin
-    FR =(Vx + Vy + (Wz*(0.77)))/200.0;  // รถใหม่ 0.77472 m.
-    BL =(Vx + Vy + (Wz*(-0.77)))/200.0; 
-    BR =(Vx - Vy + (Wz*(0.77)))/200.0;
-    // pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
-  
+
+   if (abs(Vx) >speed_satuated){
+      Vx = speed_satuated * (abs(Vx)/Vx);
+    }
+    if (abs(Vy) >speed_satuated){
+      Vy = speed_satuated * (abs(Vy)/Vy);
+    }
+    FL =((FL*19)+(Vx - Vy + (Wz*(-0.77)))/200.0)/20;  // 0.28 sum xy จากหลางล้อ ถึง origin
+    FR =((FR*19)+(Vx + Vy + (Wz*(0.77)))/200.0)/20;  // รถใหม่ 0.77472 m.
+    BL =((BL*19)+(Vx + Vy + (Wz*(-0.77)))/200.0)/20; 
+    BR =((BR*19)+(Vx - Vy + (Wz*(0.77)))/200.0)/20;
+    // if (abs(FL) >speed_satuated){
+    //   FL = speed_satuated * (abs(FL)/FL);
+    // }
+    // if (abs(FR) >speed_satuated){
+    //   FR = speed_satuated * (abs(FR)/FR);
+    // }
+    // if (abs(BL) >speed_satuated){
+    //   BL = speed_satuated * (abs(BL)/BL);
+    // }
+    // if (abs(BR) >speed_satuated){
+    //   BR = speed_satuated * (abs(BR)/BR);
+    // }
+    
+    //pc.printf("\n%.2f\t%.2f\t%.2f\t%.2f\n",FL,FR,BL,BR);
     if (FL>0){
       FrontLF=1;
       FrontLB=0;
@@ -242,8 +266,8 @@ int16_t getvalue(int16_t *input,bool w = false){
 int main()
 {
   wait(2);
-  GO(0.00,0.00,0.00);
-  
+  GO(0.0,0.0,0.0);
+  //imu
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   // pc.printf("I AM 0x%x\n\r", whoami);
   if (whoami == 0x71) // WHO_AM_I should always be 0x73
@@ -316,28 +340,58 @@ int main()
 
   X_estimate_k << 0.0
                << 0.0 ;
-  // X_predict_k0 << theta_estimate
-  //              << w_sensor ;
   
   P_estimate_k << 1.0 << 0.0
-               << 0.0 << 0.1451 ; //0.145
+               << 0.0 << 1.0 ; //0.145   0.01
   Re_P << 1.0 << 0.0
-       << 0.0 << 0.1451;
+       << 0.0 << 1.0;  // 0.01
   X_predict_k0 = X_estimate_k;
   P_predict_k0 = P_estimate_k;
 
   theta_now =0.0;
   t_kaman.start();
   t.start();
+  
+  //char temp;
 ////////////   ทิศรถ //////////////////
 //         ด้านหน้าหัน เข้า ม่านสีดำ ครับ ///
   while (1)
   {
     time = t.read_ms();
     timer_slow.reset();
-    
-    if (bluetooth.readable()) {
-      int8_t receive_start = (bluetooth.getc());
+    /////////////////////////////////////test tune control/////////////// เปิดสำหรับทดสอบ
+    // if(pc.readable()){
+    //   temp = pc.getc();
+    //   switch (temp)
+    //   {
+    //     case 'q':
+    //     pc.printf("Turn Left\n");
+    //     //Wz =300;
+    //     W_temp =-90;
+    //     break;
+
+    //     case 'e':
+    //     pc.printf("Turn Right\n");
+    //     //Wz =-300;
+    //     W_temp =90;
+    //     break;
+
+    //     case 's':
+    //     pc.printf("Stop\n");
+    //     //Wz =0;
+    //     W_temp =0;
+    //     default:
+    //     break;
+    //   }
+    // }
+///////////////////////////////////////test tune control//////////
+
+    //pc.printf("%c\n",temp);
+    //pc.printf("%.3f,%.3f\n",error_trata2,orientation);
+    //pc.printf("\t\t\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
+
+    if (pc.readable()) {   /// receieve data 
+      int8_t receive_start = (pc.getc());
 
       //pc.printf("%x\n",receive_start);  
       if(!(receive_start & 0xF8)){
@@ -348,8 +402,8 @@ int main()
         buffers |= receive_start;
         for (int i = 0; i < 4; i++)
         {
-          while (!bluetooth.readable());
-          buffers = (buffers << 8) | bluetooth.getc();   
+          while (!pc.readable());
+          buffers = (buffers << 8) | pc.getc();   
           //pc.printf("%llx\n",buffers); 
         }
 
@@ -370,11 +424,14 @@ int main()
           //pc.printf("%d\t %d\t %d\t\n",Vx,Vy,Wz);
           //GO(Vx,Vy,0);
         // }
-
+        //pc.printf("\t\t\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
       }
       continue;
+      if_datacome = 0;
     }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
   // if (bluetooth.readable()) {
   //   bluetooth.scanf("%s", command);
   //   pc.printf("%s\n",command);
@@ -412,11 +469,12 @@ int main()
     //   }
     // GO2(Vx,Vy,Wz);
     // continue;
-    // }
-
+    // }ไม่เกี่บว
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+  #pragma region Kalman_filter
     dt_kaman = t_kaman.read_ms();
     
-    if (dt_kaman >= 20)
+    if (dt_kaman >= 17)
     {
       t_kaman.reset();
       dt_kaman *= (1.00f/1000.00f);
@@ -477,9 +535,13 @@ int main()
       X_estimate_k = X_predict_k1 + (K * y_residual);
       
       P_estimate_k = (I - (K * H)) * P_predict_k1;
-      theta_now += X_estimate_k.getNumber(1,1) ;
+      if( update_pause == 0 )
+        theta_now += X_estimate_k.getNumber(1,1); 
+      else 
+        theta_now += 0;
+
       orientation = theta_now ;
-      if (orientation >= 360.00 && orientation <= -360.00){
+      if (orientation >= 360.00 || orientation <= -360.00){
         theta_now = 0.00;
         //P_estimate_k = Re_P;
       }
@@ -488,25 +550,35 @@ int main()
         sigma_mean =0;
         sigma_Rk =0;
       }
-      // K.print();
-      // pc.printf("\n");
-      //pc.printf("%f\n",orientation);
+  #pragma endregion get w and theta from kalman
+      //pc.printf("%f, %f\n", Wz_in, orientation);
       //pc.printf("%f     %f\n",W_now,X_estimate_k.getNumber(1,1));
-      int Wz_in = Wz;
+  #pragma region PID_Control  
+      Wz_in = Wz;
       if(if_datacome == 1){
         Wz_in -= 180.00;
       }
     //while(orientation<0) orientation += 360;
     float a = (-Wz_in - ( orientation ));
+    //float a = (-W_temp-(orientation));// test tune control
     if(a<-180)a+=360;
     if(a>180)a-=360;
-    float error_trata = ((a)*PI) /180;
-    float error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180.00 / PI;
+    float error_trata = ((a)*PI) /180; //radian
+    error_trata2  = atan2(sin(error_trata),cos(error_trata)) * 180.00 / PI;  // theta
     integral_error = integral_error + (error_trata2 * (dt_kaman));
     float diff = (error_trata2 - error_before)/(dt_kaman);
-    float Wz2 = (error_trata2 * 3.5)  + (integral_error * 1) + (diff * 1); //มุม
+    int Wz2;
+    if(abs(error_trata2) > 0.5){
+      Wz2 = (error_trata2 * 7.0)  + (integral_error * 0) + (diff * 0); //มุม
+      update_pause = 0;
+    }
+    else{
+      Wz2 = 0; 
+      update_pause = 1;
+    }
     error_before = error_trata2;
-    //pc.printf("\t\t\t%f\t%f\t%f\t%f\t%f\t%f\n",-Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
+    
+    //pc.printf("\t\t\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",Wz_in,(orientation),error_trata,error_trata2,Wz2,integral_error);
 
     /* move and Rotate */
     
@@ -516,10 +588,11 @@ int main()
       Vy_Side  = (Vx * sin((Wz_in * PI)/180)) + (Vy * cos((Wz_in * PI)/180));
     //GO(Vx,Vy,0);
     GO(Vx_Front,Vy_Side,Wz2);
-    pc.printf("\t%d\t%d\t%d\n",Vx_Front,Vy_Side,Wz_in);
+    //GO(0,0,Wz2);
+    //pc.printf("\t%d\t%d\t%d\n",Vx_Front,Vy_Side,Wz_in);
 
     }
-    
+  #pragma endregion pid
     if (IMU_timer.read()>=0.1){
       task_sent();
       double eiei_output2 = timer_slow.read();
