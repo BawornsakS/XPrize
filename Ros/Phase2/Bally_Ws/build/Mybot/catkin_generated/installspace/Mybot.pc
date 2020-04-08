@@ -1,0 +1,8 @@
+prefix=/home/xprize_vr2/Bally_Ws/install
+
+Name: Mybot
+Description: Description of Mybot
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
