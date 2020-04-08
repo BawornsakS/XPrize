@@ -1,0 +1,103 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from turtlesim:srv/SetPen.idl
+// generated code does not contain a copyright notice
+
+#ifndef __turtlesim__srv__set_pen__idl__
+#define __turtlesim__srv__set_pen__idl__
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+
+struct SetPen_Request_ {
+octet r_;
+octet g_;
+octet b_;
+octet width_;
+octet off_;
+
+};
+
+#pragma keylist SetPen_Request_
+
+};  // module dds_
+
+};  // module srv
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+
+struct SetPen_Response_ {
+octet structure_needs_at_least_one_member_;
+
+};
+
+#pragma keylist SetPen_Response_
+
+};  // module dds_
+
+};  // module srv
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+struct Sample_SetPen_Request_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::srv::dds_::SetPen_Request_ request_;
+
+};
+
+#pragma keylist Sample_SetPen_Request_
+
+};  // module dds_
+
+};  // module srv {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+struct Sample_SetPen_Response_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::srv::dds_::SetPen_Response_ response_;
+
+};
+
+#pragma keylist Sample_SetPen_Response_
+
+};  // module dds_
+
+};  // module srv {
+
+};  // module turtlesim {
+
+
+#endif  // __turtlesim__srv__set_pen__idl__

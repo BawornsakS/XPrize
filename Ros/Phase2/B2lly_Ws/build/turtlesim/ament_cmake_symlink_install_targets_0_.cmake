@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/xprize_vr2/B2lly_Ws/build/turtlesim/libturtlesim__rosidl_generator_c.so" "TARGETS" "turtlesim__rosidl_generator_c" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

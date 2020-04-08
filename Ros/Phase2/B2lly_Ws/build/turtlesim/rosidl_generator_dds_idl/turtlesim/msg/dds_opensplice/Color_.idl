@@ -1,0 +1,32 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from turtlesim:msg/Color.idl
+// generated code does not contain a copyright notice
+
+#ifndef __turtlesim__msg__color__idl__
+#define __turtlesim__msg__color__idl__
+
+
+module turtlesim {
+
+module msg {
+
+module dds_ {
+
+
+struct Color_ {
+octet r_;
+octet g_;
+octet b_;
+
+};
+
+#pragma keylist Color_
+
+};  // module dds_
+
+};  // module msg
+
+};  // module turtlesim
+
+
+#endif  // __turtlesim__msg__color__idl__

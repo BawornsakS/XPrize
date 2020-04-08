@@ -1,0 +1,34 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from turtlesim:msg/Pose.idl
+// generated code does not contain a copyright notice
+
+#ifndef __turtlesim__msg__pose__idl__
+#define __turtlesim__msg__pose__idl__
+
+
+module turtlesim {
+
+module msg {
+
+module dds_ {
+
+
+struct Pose_ {
+float x_;
+float y_;
+float theta_;
+float linear_velocity_;
+float angular_velocity_;
+
+};
+
+#pragma keylist Pose_
+
+};  // module dds_
+
+};  // module msg
+
+};  // module turtlesim
+
+
+#endif  // __turtlesim__msg__pose__idl__

@@ -1,0 +1,23 @@
+[0.719s] running egg_info
+[0.720s] writing /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/PKG-INFO
+[0.720s] writing dependency_links to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/dependency_links.txt
+[0.720s] writing entry points to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/entry_points.txt
+[0.720s] writing requirements to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/requires.txt
+[0.720s] writing top-level names to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/top_level.txt
+[0.746s] reading manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.747s] writing manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.747s] running build
+[0.747s] running build_py
+[0.747s] copying py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub
+[0.747s] running install
+[0.747s] running install_lib
+[0.748s] copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub
+[0.748s] byte-compiling /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub/subscriber_member_function.py to subscriber_member_function.cpython-36.pyc
+[0.748s] running install_data
+[0.749s] running install_egg_info
+[0.751s] removing '/home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info' (and everything under it)
+[0.751s] Copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info
+[0.751s] running install_scripts
+[0.767s] Installing listener script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.767s] Installing talker script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.767s] writing list of installed files to '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/install.log'

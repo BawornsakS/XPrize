@@ -1,0 +1,1 @@
+/home/xprize_vr2/B2lly_Ws/build/turtlesim/rosidl_typesupport_fastrtps_cpp/turtlesim/msg/pose__rosidl_typesupport_fastrtps_cpp.hpp

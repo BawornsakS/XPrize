@@ -1,0 +1,99 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from turtlesim:srv/Kill.idl
+// generated code does not contain a copyright notice
+
+#ifndef __turtlesim__srv__kill__idl__
+#define __turtlesim__srv__kill__idl__
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+
+struct Kill_Request_ {
+string name_;
+
+};
+
+#pragma keylist Kill_Request_
+
+};  // module dds_
+
+};  // module srv
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+
+struct Kill_Response_ {
+octet structure_needs_at_least_one_member_;
+
+};
+
+#pragma keylist Kill_Response_
+
+};  // module dds_
+
+};  // module srv
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+struct Sample_Kill_Request_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::srv::dds_::Kill_Request_ request_;
+
+};
+
+#pragma keylist Sample_Kill_Request_
+
+};  // module dds_
+
+};  // module srv {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module srv {
+
+module dds_ {
+
+struct Sample_Kill_Response_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::srv::dds_::Kill_Response_ response_;
+
+};
+
+#pragma keylist Sample_Kill_Response_
+
+};  // module dds_
+
+};  // module srv {
+
+};  // module turtlesim {
+
+
+#endif  // __turtlesim__srv__kill__idl__

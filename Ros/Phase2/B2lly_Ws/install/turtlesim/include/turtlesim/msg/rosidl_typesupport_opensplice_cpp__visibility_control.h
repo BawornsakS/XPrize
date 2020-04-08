@@ -1,0 +1,1 @@
+/home/xprize_vr2/B2lly_Ws/build/turtlesim/rosidl_typesupport_opensplice_cpp/turtlesim/msg/rosidl_typesupport_opensplice_cpp__visibility_control.h

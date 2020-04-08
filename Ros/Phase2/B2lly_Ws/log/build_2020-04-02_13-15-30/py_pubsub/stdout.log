@@ -1,0 +1,26 @@
+[0.724s] running egg_info
+[0.725s] writing /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/PKG-INFO
+[0.725s] writing dependency_links to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/dependency_links.txt
+[0.725s] writing entry points to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/entry_points.txt
+[0.725s] writing requirements to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/requires.txt
+[0.725s] writing top-level names to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/top_level.txt
+[0.751s] reading manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.753s] writing manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.753s] running build
+[0.753s] running build_py
+[0.753s] copying py_pubsub/publisher_member_function.py -> /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub
+[0.753s] copying py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub
+[0.753s] running install
+[0.753s] running install_lib
+[0.754s] copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub/publisher_member_function.py -> /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub
+[0.754s] copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub
+[0.754s] byte-compiling /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub/publisher_member_function.py to publisher_member_function.cpython-36.pyc
+[0.755s] byte-compiling /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub/subscriber_member_function.py to subscriber_member_function.cpython-36.pyc
+[0.755s] running install_data
+[0.755s] running install_egg_info
+[0.757s] removing '/home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info' (and everything under it)
+[0.757s] Copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info
+[0.758s] running install_scripts
+[0.772s] Installing listener script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.772s] Installing talker script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.773s] writing list of installed files to '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/install.log'

@@ -1,0 +1,25 @@
+[0.498s] Invoking command in '/home/xprize_vr2/B2lly_Ws/src/py_pubsub': PYTHONPATH=/home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base /home/xprize_vr2/B2lly_Ws/build/py_pubsub build --build-base /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build install --prefix /home/xprize_vr2/B2lly_Ws/install/py_pubsub --record /home/xprize_vr2/B2lly_Ws/build/py_pubsub/install.log --single-version-externally-managed
+[0.722s] running egg_info
+[0.723s] writing /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/PKG-INFO
+[0.723s] writing dependency_links to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/dependency_links.txt
+[0.723s] writing entry points to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/entry_points.txt
+[0.723s] writing requirements to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/requires.txt
+[0.723s] writing top-level names to /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/top_level.txt
+[0.749s] reading manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.750s] writing manifest file '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[0.750s] running build
+[0.750s] running build_py
+[0.750s] copying py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub
+[0.751s] running install
+[0.751s] running install_lib
+[0.752s] copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build/lib/py_pubsub/subscriber_member_function.py -> /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub
+[0.752s] byte-compiling /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub/subscriber_member_function.py to subscriber_member_function.cpython-36.pyc
+[0.752s] running install_data
+[0.753s] running install_egg_info
+[0.755s] removing '/home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info' (and everything under it)
+[0.755s] Copying /home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages/py_pubsub-0.0.0-py3.6.egg-info
+[0.755s] running install_scripts
+[0.770s] Installing listener script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.771s] Installing talker script to /home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/py_pubsub
+[0.771s] writing list of installed files to '/home/xprize_vr2/B2lly_Ws/build/py_pubsub/install.log'
+[0.811s] Invoked command in '/home/xprize_vr2/B2lly_Ws/src/py_pubsub' returned '0': PYTHONPATH=/home/xprize_vr2/B2lly_Ws/install/py_pubsub/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base /home/xprize_vr2/B2lly_Ws/build/py_pubsub build --build-base /home/xprize_vr2/B2lly_Ws/build/py_pubsub/build install --prefix /home/xprize_vr2/B2lly_Ws/install/py_pubsub --record /home/xprize_vr2/B2lly_Ws/build/py_pubsub/install.log --single-version-externally-managed

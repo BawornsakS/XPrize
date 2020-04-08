@@ -1,0 +1,17 @@
+package.xml
+setup.cfg
+setup.py
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/PKG-INFO
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/SOURCES.txt
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/dependency_links.txt
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/entry_points.txt
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/requires.txt
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/top_level.txt
+/home/xprize_vr2/B2lly_Ws/build/py_pubsub/py_pubsub.egg-info/zip-safe
+py_pubsub/__init__.py
+py_pubsub/publisher_member_function.py
+py_pubsub/subscriber_member_function.py
+resource/py_pubsub
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

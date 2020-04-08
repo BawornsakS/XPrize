@@ -1,0 +1,279 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from turtlesim:action/RotateAbsolute.idl
+// generated code does not contain a copyright notice
+#include "builtin_interfaces/msg/dds_opensplice/Time_.idl"
+#include "unique_identifier_msgs/msg/dds_opensplice/UUID_.idl"
+
+#ifndef __turtlesim__action__rotate_absolute__idl__
+#define __turtlesim__action__rotate_absolute__idl__
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_Goal_ {
+float theta_;
+
+};
+
+#pragma keylist RotateAbsolute_Goal_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_SendGoal_Request_ {
+unique_identifier_msgs::msg::dds_::UUID_ goal_id_;
+turtlesim::action::dds_::RotateAbsolute_Goal_ goal_;
+
+};
+
+#pragma keylist RotateAbsolute_SendGoal_Request_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_SendGoal_Response_ {
+boolean accepted_;
+builtin_interfaces::msg::dds_::Time_ stamp_;
+
+};
+
+#pragma keylist RotateAbsolute_SendGoal_Response_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+struct Sample_RotateAbsolute_SendGoal_Request_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::action::dds_::RotateAbsolute_SendGoal_Request_ request_;
+
+};
+
+#pragma keylist Sample_RotateAbsolute_SendGoal_Request_
+
+};  // module dds_
+
+};  // module action {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+struct Sample_RotateAbsolute_SendGoal_Response_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::action::dds_::RotateAbsolute_SendGoal_Response_ response_;
+
+};
+
+#pragma keylist Sample_RotateAbsolute_SendGoal_Response_
+
+};  // module dds_
+
+};  // module action {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_Result_ {
+float delta_;
+
+};
+
+#pragma keylist RotateAbsolute_Result_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_GetResult_Request_ {
+unique_identifier_msgs::msg::dds_::UUID_ goal_id_;
+
+};
+
+#pragma keylist RotateAbsolute_GetResult_Request_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_GetResult_Response_ {
+octet status_;
+turtlesim::action::dds_::RotateAbsolute_Result_ result_;
+
+};
+
+#pragma keylist RotateAbsolute_GetResult_Response_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+struct Sample_RotateAbsolute_GetResult_Request_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::action::dds_::RotateAbsolute_GetResult_Request_ request_;
+
+};
+
+#pragma keylist Sample_RotateAbsolute_GetResult_Request_
+
+};  // module dds_
+
+};  // module action {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+struct Sample_RotateAbsolute_GetResult_Response_ {
+
+unsigned long long client_guid_0_;
+unsigned long long client_guid_1_;
+long long sequence_number_;
+turtlesim::action::dds_::RotateAbsolute_GetResult_Response_ response_;
+
+};
+
+#pragma keylist Sample_RotateAbsolute_GetResult_Response_
+
+};  // module dds_
+
+};  // module action {
+
+};  // module turtlesim {
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_Feedback_ {
+float remaining_;
+
+};
+
+#pragma keylist RotateAbsolute_Feedback_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+module turtlesim {
+
+module action {
+
+module dds_ {
+
+
+struct RotateAbsolute_FeedbackMessage_ {
+unique_identifier_msgs::msg::dds_::UUID_ goal_id_;
+turtlesim::action::dds_::RotateAbsolute_Feedback_ feedback_;
+
+};
+
+#pragma keylist RotateAbsolute_FeedbackMessage_
+
+};  // module dds_
+
+};  // module action
+
+};  // module turtlesim
+
+
+#endif  // __turtlesim__action__rotate_absolute__idl__

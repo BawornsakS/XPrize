@@ -1,0 +1,283 @@
+[0.544s] [  1%] Built target turtlesim__dds_opensplice_idl
+[0.544s] [  1%] Built target turtlesim__cpp
+[0.546s] [  6%] Built target turtlesim__rosidl_generator_c
+[0.575s] [ 11%] Built target turtlesim__rosidl_typesupport_cpp
+[0.577s] [ 17%] Built target turtlesim__rosidl_typesupport_introspection_cpp
+[0.578s] [ 23%] Built target turtlesim__rosidl_typesupport_c
+[0.588s] [ 28%] Built target turtlesim__rosidl_typesupport_introspection_c
+[0.594s] [ 33%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp
+[0.621s] [ 39%] Built target turtlesim__rosidl_typesupport_fastrtps_c
+[0.636s] [ 62%] Built target turtlesim__rosidl_typesupport_opensplice_cpp
+[0.725s] [ 85%] Built target turtlesim__rosidl_typesupport_opensplice_c
+[0.744s] [ 85%] Built target turtlesim
+[0.773s] [ 85%] Built target turtlesim__py
+[0.776s] [ 86%] Built target mimic
+[0.779s] [ 87%] Built target turtle_teleop_key
+[0.786s] [ 88%] Built target draw_square
+[0.794s] [ 92%] Built target turtlesim_node
+[0.804s] [ 97%] Built target turtlesim__python
+[0.828s] [100%] Built target turtlesim__rosidl_typesupport_opensplice_c__pyext
+[0.828s] [100%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext
+[0.828s] [100%] Built target turtlesim__rosidl_typesupport_c__pyext
+[1.124s] [  1%] Built target turtlesim__cpp
+[1.124s] [  1%] Built target turtlesim__dds_opensplice_idl
+[1.125s] [  6%] Built target turtlesim__rosidl_generator_c
+[1.148s] [ 11%] Built target turtlesim__rosidl_typesupport_cpp
+[1.149s] [ 17%] Built target turtlesim__rosidl_typesupport_introspection_cpp
+[1.150s] [ 23%] Built target turtlesim__rosidl_typesupport_c
+[1.152s] [ 28%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp
+[1.156s] [ 33%] Built target turtlesim__rosidl_typesupport_introspection_c
+[1.179s] [ 39%] Built target turtlesim__rosidl_typesupport_fastrtps_c
+[1.211s] [ 62%] Built target turtlesim__rosidl_typesupport_opensplice_cpp
+[1.299s] [ 85%] Built target turtlesim__rosidl_typesupport_opensplice_c
+[1.316s] [ 85%] Built target turtlesim
+[1.335s] [ 85%] Built target turtlesim__py
+[1.338s] [ 86%] Built target draw_square
+[1.339s] [ 87%] Built target mimic
+[1.339s] [ 88%] Built target turtle_teleop_key
+[1.354s] [ 92%] Built target turtlesim_node
+[1.363s] [ 97%] Built target turtlesim__python
+[1.387s] [100%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext
+[1.387s] [100%] Built target turtlesim__rosidl_typesupport_c__pyext
+[1.387s] [100%] Built target turtlesim__rosidl_typesupport_opensplice_c__pyext
+[1.404s] [36mInstall the project...[0m
+[1.411s] -- Install configuration: ""
+[1.412s] -- Execute custom install script
+[1.412s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/ament_index/resource_index/rosidl_interfaces/turtlesim
+[1.413s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute.hpp
+[1.413s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__struct.hpp
+[1.413s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__traits.hpp
+[1.413s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color.hpp
+[1.413s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__struct.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__traits.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__struct.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__traits.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__struct.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__traits.hpp
+[1.414s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__struct.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__traits.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__struct.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__traits.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__struct.hpp
+[1.415s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__traits.hpp
+[1.416s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative.hpp
+[1.416s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__struct.hpp
+[1.416s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__traits.hpp
+[1.416s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__functions.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__struct.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__type_support.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__functions.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__struct.h
+[1.417s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__type_support.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__functions.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__struct.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__type_support.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_generator_c__visibility_control.h
+[1.418s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__functions.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__struct.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__type_support.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__functions.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__struct.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__type_support.h
+[1.419s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__functions.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__struct.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__type_support.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__functions.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__struct.h
+[1.420s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__type_support.h
+[1.421s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative.h
+[1.421s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__functions.h
+[1.421s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__struct.h
+[1.421s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__type_support.h
+[1.421s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/environment/library_path.sh
+[1.422s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_generator_c.so
+[1.422s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_c.so
+[1.422s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_cpp.so
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_introspection_c.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_introspection_c.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_introspection_c.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_introspection_c.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_introspection_c.h
+[1.423s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_introspection_c.h
+[1.424s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_introspection_c.h
+[1.424s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_introspection_c.h
+[1.424s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_c.so
+[1.424s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_introspection_cpp.hpp
+[1.425s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_introspection_cpp.hpp
+[1.425s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_introspection_cpp.hpp
+[1.425s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_introspection_cpp.hpp
+[1.425s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_introspection_cpp.hpp
+[1.425s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_introspection_cpp.hpp
+[1.426s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_introspection_cpp.hpp
+[1.426s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_introspection_cpp.hpp
+[1.426s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_cpp.so
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_fastrtps_c.h
+[1.427s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_fastrtps_c.h
+[1.428s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_fastrtps_c.h
+[1.428s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_c.so
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_fastrtps_cpp.hpp
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_fastrtps_cpp.hpp
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_fastrtps_cpp.hpp
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_fastrtps_cpp.hpp
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_fastrtps_cpp.hpp
+[1.429s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_fastrtps_cpp.hpp
+[1.430s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_fastrtps_cpp.hpp
+[1.430s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_fastrtps_cpp.hpp
+[1.430s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_cpp.so
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_opensplice_c.h
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_opensplice_c.h
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_opensplice_c.h
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_opensplice_c__visibility_control.h
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_opensplice_c.h
+[1.431s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_opensplice_c.h
+[1.432s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_opensplice_c.h
+[1.432s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_opensplice_c.h
+[1.432s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_opensplice_c.h
+[1.432s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_opensplice_c.so
+[1.432s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/action/dds_opensplice/RotateAbsolute_.idl
+[1.433s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/dds_opensplice/Color_.idl
+[1.433s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/dds_opensplice/Pose_.idl
+[1.433s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/dds_opensplice/Kill_.idl
+[1.434s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/dds_opensplice/SetPen_.idl
+[1.434s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/dds_opensplice/Spawn_.idl
+[1.434s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/dds_opensplice/TeleportAbsolute_.idl
+[1.434s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/dds_opensplice/TeleportRelative_.idl
+[1.435s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/dds_opensplice/RotateAbsolute_.h
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/dds_opensplice/RotateAbsolute_Dcps.h
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/dds_opensplice/RotateAbsolute_Dcps_impl.h
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/dds_opensplice/RotateAbsolute_SplDcps.h
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/dds_opensplice/ccpp_RotateAbsolute_.h
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/action/rotate_absolute__rosidl_typesupport_opensplice_cpp.hpp
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/color__rosidl_typesupport_opensplice_cpp.hpp
+[1.436s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Color_.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Color_Dcps.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Color_Dcps_impl.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Color_SplDcps.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Pose_.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Pose_Dcps.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Pose_Dcps_impl.h
+[1.437s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/Pose_SplDcps.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/ccpp_Color_.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/dds_opensplice/ccpp_Pose_.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/pose__rosidl_typesupport_opensplice_cpp.hpp
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_opensplice_cpp__visibility_control.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Kill_.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Kill_Dcps.h
+[1.438s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Kill_Dcps_impl.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Kill_SplDcps.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/SetPen_.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/SetPen_Dcps.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/SetPen_Dcps_impl.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/SetPen_SplDcps.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Spawn_.h
+[1.439s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Spawn_Dcps.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Spawn_Dcps_impl.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/Spawn_SplDcps.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportAbsolute_.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportAbsolute_Dcps.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportAbsolute_Dcps_impl.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportAbsolute_SplDcps.h
+[1.440s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportRelative_.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportRelative_Dcps.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportRelative_Dcps_impl.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/TeleportRelative_SplDcps.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/ccpp_Kill_.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/ccpp_SetPen_.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/ccpp_Spawn_.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/ccpp_TeleportAbsolute_.h
+[1.441s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/dds_opensplice/ccpp_TeleportRelative_.h
+[1.442s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/kill__rosidl_typesupport_opensplice_cpp.hpp
+[1.442s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/set_pen__rosidl_typesupport_opensplice_cpp.hpp
+[1.442s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/spawn__rosidl_typesupport_opensplice_cpp.hpp
+[1.442s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_absolute__rosidl_typesupport_opensplice_cpp.hpp
+[1.442s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/include/turtlesim/srv/teleport_relative__rosidl_typesupport_opensplice_cpp.hpp
+[1.443s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__rosidl_typesupport_opensplice_cpp.so
+[1.443s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/environment/pythonpath.sh
+[1.443s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/__init__.py
+[1.443s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/action/__init__.py
+[1.444s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/action/_rotate_absolute.py
+[1.444s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/msg/__init__.py
+[1.444s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/msg/_color.py
+[1.444s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/msg/_pose.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/__init__.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/_kill.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/_set_pen.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/_spawn.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/_teleport_absolute.py
+[1.445s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/srv/_teleport_relative.py
+[1.446s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_c.cpython-36m-x86_64-linux-gnu.so
+[1.446s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_fastrtps_c.cpython-36m-x86_64-linux-gnu.so
+[1.447s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/python3.6/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_opensplice_c.cpython-36m-x86_64-linux-gnu.so
+[1.447s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/libturtlesim__python.so
+[1.447s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/action/RotateAbsolute.idl
+[1.447s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/Color.idl
+[1.447s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/Pose.idl
+[1.448s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Kill.idl
+[1.448s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/SetPen.idl
+[1.448s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Spawn.idl
+[1.448s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.idl
+[1.448s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportRelative.idl
+[1.449s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/action/RotateAbsolute.action
+[1.449s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/Color.msg
+[1.449s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/msg/Pose.msg
+[1.449s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Kill.srv
+[1.450s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Kill_Request.msg
+[1.450s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Kill_Response.msg
+[1.450s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/SetPen.srv
+[1.450s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/SetPen_Request.msg
+[1.450s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/SetPen_Response.msg
+[1.451s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Spawn.srv
+[1.451s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Spawn_Request.msg
+[1.451s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/Spawn_Response.msg
+[1.451s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.srv
+[1.451s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Request.msg
+[1.452s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Response.msg
+[1.452s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportRelative.srv
+[1.452s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportRelative_Request.msg
+[1.452s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/srv/TeleportRelative_Response.msg
+[1.453s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/turtlesim/turtlesim_node
+[1.453s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/turtlesim/turtle_teleop_key
+[1.453s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/turtlesim/draw_square
+[1.453s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/lib/turtlesim/mimic
+[1.454s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/launch/multisim.launch.py
+[1.454s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/ament_index/resource_index/package_run_dependencies/turtlesim
+[1.454s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/ament_index/resource_index/parent_prefix_path/turtlesim
+[1.454s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/environment/ament_prefix_path.sh
+[1.455s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/environment/path.sh
+[1.455s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/local_setup.bash
+[1.455s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/local_setup.sh
+[1.455s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/local_setup.zsh
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/ament_index/resource_index/packages/turtlesim
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/rosidl_cmake-extras.cmake
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_libraries-extras.cmake
+[1.456s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[1.457s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/turtlesimConfig.cmake
+[1.457s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/cmake/turtlesimConfig-version.cmake
+[1.457s] -- Up-to-date symlink: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/package.xml
+[1.488s] -- Up-to-date: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images
+[1.488s] -- Up-to-date: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/dashing.png
+[1.488s] -- Up-to-date: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/ardent.png
+[1.488s] -- Up-to-date: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/crystal.png
+[1.488s] -- Up-to-date: /home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/bouncy.png

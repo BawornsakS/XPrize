@@ -1,0 +1,4 @@
+/home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/dashing.png
+/home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/ardent.png
+/home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/crystal.png
+/home/xprize_vr2/B2lly_Ws/install/turtlesim/share/turtlesim/images/bouncy.png

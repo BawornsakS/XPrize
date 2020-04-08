@@ -1,0 +1,1 @@
+/home/xprize_vr2/B2lly_Ws/build/turtlesim/rosidl_cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake

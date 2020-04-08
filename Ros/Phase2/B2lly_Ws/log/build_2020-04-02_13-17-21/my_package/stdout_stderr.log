@@ -1,0 +1,19 @@
+[0.730s] running egg_info
+[0.730s] writing /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/PKG-INFO
+[0.731s] writing dependency_links to /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/dependency_links.txt
+[0.731s] writing entry points to /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/entry_points.txt
+[0.731s] writing requirements to /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/requires.txt
+[0.731s] writing top-level names to /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/top_level.txt
+[0.757s] reading manifest file '/home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/SOURCES.txt'
+[0.758s] writing manifest file '/home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info/SOURCES.txt'
+[0.758s] running build
+[0.758s] running build_py
+[0.759s] running install
+[0.759s] running install_lib
+[0.760s] running install_data
+[0.761s] running install_egg_info
+[0.764s] removing '/home/xprize_vr2/B2lly_Ws/install/my_package/lib/python3.6/site-packages/my_package-0.0.0-py3.6.egg-info' (and everything under it)
+[0.764s] Copying /home/xprize_vr2/B2lly_Ws/build/my_package/my_package.egg-info to /home/xprize_vr2/B2lly_Ws/install/my_package/lib/python3.6/site-packages/my_package-0.0.0-py3.6.egg-info
+[0.765s] running install_scripts
+[0.779s] Installing my_node script to /home/xprize_vr2/B2lly_Ws/install/my_package/lib/my_package
+[0.780s] writing list of installed files to '/home/xprize_vr2/B2lly_Ws/build/my_package/install.log'
