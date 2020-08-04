@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot>
+
+	<gazebo reference="base_link">
+		<mu1>0</mu1>
+		<mu2>0</mu2>
+		<!-- <dampingFactor> 0.4 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+	
+</robot>

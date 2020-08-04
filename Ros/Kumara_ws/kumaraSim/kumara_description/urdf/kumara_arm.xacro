@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<robot name="KumaraRA" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:include filename="$(find kumara_description)/urdf/kumara_properties.xacro" />
+    <xacro:include filename="$(find kumara_description)/urdf/kumara_arm.gazebo" />
+    
+    <xacro:macro name="kumaraRA" params="parent">
+
+        <link name="arm_base">
+            <inertial>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/base_link.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <link name="link_1">
+            <inertial>
+                <origin rpy="${PId2} 0 0" xyz = "0 0 ${L1}"/>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <origin rpy="${PId2} 0 0" xyz = "0 0 ${L1}"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/link_1.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <link name="link_2">
+            <inertial>
+                <origin rpy="-${PId2} 0 ${PId2}"/>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <origin rpy="-${PId2} 0 ${PId2}"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/link_2.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <link name="link_3">
+            <inertial>
+                <origin rpy="-${PId2} 0 -${PId2}" xyz = "0 0 ${L2}"/>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <origin rpy="-${PId2} 0 -${PId2}" xyz = "0 0 ${L2}"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/link_3.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <link name="link_4">
+            <inertial>
+                <origin rpy="${PId2} 0 ${PId2}"/>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <origin rpy="${PId2} 0 ${PId2}"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/link_4.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <link name="link_5">
+            <inertial>
+                <origin xyz="0 0 ${L3}"/>
+                <mass value = "1"/>
+                <inertia ixx = "0.26" iyy = "0.26" izz = "0.01" ixy = "0" ixz = "0" iyz = "0"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 ${L3}"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/arm/link_5.STL" scale="1 1 1"/>
+                </geometry>
+            </visual>
+        </link>
+
+        <joint name="parent_to_arm_base" type="fixed">
+            <parent link="${parent}"/>
+            <child link="arm_base"/>
+            <axis xyz = "0 0 1"/>
+            <origin xyz="0.17717 -0.0752 0.97939" rpy = "${PId2} -${PId2} 0"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <joint name="arm_base_to_link_1" type="revolute">
+            <parent link="arm_base"/>
+            <child link="link_1"/>
+            <axis xyz = "0 0 1"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <joint name="link_1_to_link_2" type="revolute">
+            <parent link="link_1"/>
+            <child link="link_2"/>
+            <axis xyz = "0 0 1"/>
+            <origin rpy="${PId2} 0 0" xyz = "0 0 0.13764"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <joint name="link_2_to_link_3" type="revolute">
+            <parent link="link_2"/>
+            <child link="link_3"/>
+            <axis xyz = "0 0 1"/>
+            <origin rpy="-${PId2} 0 ${PId2}"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <joint name="link_3_to_link_4" type="revolute">
+            <parent link="link_3"/>
+            <child link="link_4"/>
+            <axis xyz = "0 0 1"/>
+            <origin rpy="-${PId2} 0 -${PId2}" xyz = "0 0 0.27597"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <joint name="link_4_to_link_5" type="revolute">
+            <parent link="link_4"/>
+            <child link="link_5"/>
+            <axis xyz = "0 0 1"/>
+            <origin rpy="${PId2} 0 ${PId2}"/>
+            <dynamics damping="0.7"/>
+            <limit lower = "-${PI}" upper = "${PI}" effort = "40" velocity = "1000"/>
+        </joint>
+
+        <transmission name="tran1">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="arm_base_to_link_1">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor1">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="tran2">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="link_1_to_link_2">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor2">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="tran3">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="link_2_to_link_3">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor3">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="tran4">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="link_3_to_link_4">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor4">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="tran5">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="link_4_to_link_5">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor5">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+    </xacro:macro>
+</robot>
