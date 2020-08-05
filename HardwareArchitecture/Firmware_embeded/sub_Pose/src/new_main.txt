@@ -1,0 +1,32 @@
+#include <mbed.h>
+
+SPI spi(PB_15, PB_14, PB_13); // mosi, miso, sclk
+
+class Encoder {
+public:
+    Encoder(PinName CS_Pin) {
+        Encoder_CS = new DigitalOut(CS_Pin);
+    }
+
+    int read() {
+        *Encoder_CS=1;
+        *Encoder_CS=0;
+        spi.write(0xFFFF);
+        *Encoder_CS=1;
+        wait_us(1);
+        *Encoder_CS=0;
+        int w = spi.write(0x0000);
+        *Encoder_CS=1;
+        w = (w & 0x3FF0);
+        return w;
+    };
+
+private:
+    DigitalOut *Encoder_CS;
+};
+int main(int argc, char const *argv[])
+{
+    spi.format(16, 1);
+    spi.frequency(10000000);
+    return 0;
+}
