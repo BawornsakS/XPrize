@@ -1,0 +1,67 @@
+#include <mbed.h>
+#include <myEncoder.h>
+myEncoder::myEncoder(PinName one,PinName two,PinName three,PinName four){
+    cs[0] = new DigitalOut(one);
+    cs[1] = new DigitalOut(two);
+    cs[2] = new DigitalOut(three);
+    cs[3] = new DigitalOut(four);
+}
+
+void myEncoder::set_spi(PinName MOSI,PinName MISO,PinName SCK){
+    spi = new SPI(MOSI,MISO,SCK);
+}
+
+int myEncoder::read_enc(int position){
+  static int w;
+  *cs[position]= 1;
+  *cs[position]= 0;
+  spi->write(0xFFFF);
+  *cs[position]= 1;
+  wait_us(1);
+  *cs[position]= 0;
+  w = spi->write(0x0000);
+  *cs[position]= 1;
+  w = (w & 0x3FF0);
+  return w;
+}
+
+int myEncoder::enc_offset(){
+    for (int i=0;i<4;i++){
+    *cs[i] = 1;
+    *cs[i] = 0;
+    spi->write(0xFFFF);
+    *cs[i] = 1;
+    wait_us(1);
+    *cs[i] = 0;
+    *setoffset[i] = spi->write(0x0000);
+    *cs[i] = 1;
+    *setoffset[i] = (*setoffset[i] & 0x3FF0);
+  }
+}
+
+motor::motor(PinName ina,PinName inb,PinName pwm){
+    outa = new DigitalOut(ina);
+    outb = new DigitalOut(inb);
+    pwmf = new PwmOut(pwm);
+}
+
+void motor::drive(float value){
+    if(value>0){
+        *outa = 1;
+        *outb = 0;
+    }
+    else if(value<0){
+        *outa = 0;
+        *outb = 1;
+    }
+    else if(value == 0){
+        *outa = 0;
+        *outb = 0;
+    }
+    if(value > 1.0){
+        value = 1.0;
+    }else if(value < -1.0){
+        value = -1.0;
+    }
+    pwmf->write(abs(value));
+}
