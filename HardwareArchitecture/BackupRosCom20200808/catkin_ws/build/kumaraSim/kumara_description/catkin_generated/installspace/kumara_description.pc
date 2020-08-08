@@ -1,0 +1,8 @@
+prefix=/home/xprize-vr2/catkin_ws/install
+
+Name: kumara_description
+Description: Description of kumara_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,51 @@
+kumara:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 60  
+  r_arm_q1_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: arm_base_to_link_1
+  r_arm_q2_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: link_1_to_link_2
+  r_arm_q3_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: link_2_to_link_3
+  r_arm_q4_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: link_3_to_link_4
+  r_arm_q5_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: link_4_to_link_5
+  base_x_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: base_x_axis_joint
+    pid: {p: 140.0, i: 20, d: 0}
+  base_y_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: base_y_axis_joint
+    pid: {p: 140.0, i: 20, d: 0}
+  base_z_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: base_z_axis_joint
+    pid: {p: 100.0, i: 40, d: 0}
+  neck_x_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: neck_tran_x_joint
+    pid: {p: 30.0, i: 0.1, d: 10.0}
+  neck_z_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: neck_tran_z_joint
+    pid: {p: 50.0, i: 0.1, d: 10.0}
+  neck_rx_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: neck_rot_x_joint
+    pid: {p: 40.0, i: 0.1, d: 12.0}
+  neck_ry_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: neck_rot_y_joint
+    pid: {p: 30.0, i: 0.1, d: 10.0}
+  neck_rz_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: neck_rot_z_joint
+    pid: {p: 8.0, i: 0.1, d: 0.0}

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot name="rplidar_a2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:include filename="$(find kumara_description)/urdf/kumara_properties.xacro" />
+    
+    <xacro:macro name="rplidar_a2" params="prefix parent offset_from_parent visualize">
+        <joint name="${prefix}_rplidar_joint" type="fixed">
+            <origin xyz="${offset_from_parent}" rpy="0 0 0"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_rplidar_link"/>
+        </joint>
+
+        
+        <link name="${prefix}_rplidar_link">
+            <visual>
+                <origin xyz="0 0 -0.03" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/rplidar_a2.STL" scale="1 1 1"/>
+                </geometry>
+                <material name="grey"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.1" />
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial>
+        </link>
+
+        <gazebo reference="${prefix}_rplidar_link">
+            <material>Gazebo/Grey</material>
+            <sensor type="ray" name="${prefix}_rplidar_a2">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>${visualize}</visualize>
+                <update_rate>10</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>800</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-3.14159265359</min_angle>
+                            <max_angle>3.14159265359</max_angle>
+                        </horizontal>
+                    </scan>
+                        <range>
+                            <min>0.10</min>
+                            <max>12.0</max>
+                            <resolution>0.0174533</resolution>
+                        </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <!-- Noise parameters based on published spec for Hokuyo laser
+                            achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                            stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                            reading. -->
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="gazebo_ros_${prefix}_lidar" filename="libgazebo_ros_laser.so">
+                    <topicName>/kumara/${prefix}_laser/scan</topicName>
+                    <frameName>${prefix}_rplidar_link</frameName>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+</robot>

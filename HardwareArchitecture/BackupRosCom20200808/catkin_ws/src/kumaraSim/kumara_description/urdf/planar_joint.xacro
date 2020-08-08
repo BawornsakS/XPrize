@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot name="PlanarJoint" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    
+    <xacro:macro name="planar_joint" params="prefix parent child">
+        <xacro:property name="LINEAR_DAMP" value="15"/>
+        <xacro:property name="ANGULAR_DAMP" value="8"/>
+        <link name="${prefix}_x_axis_link">
+            <inertial>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <mass value="1e-5" />
+                <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="1e-6 1e-6 1e-6"/>
+                </geometry>
+            </visual>
+        </link>
+
+
+        <link name="${prefix}_y_axis_link">
+            <inertial>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <mass value="1e-5" />
+                <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="1e-6 1e-6 1e-6"/>
+                </geometry>
+            </visual>
+        </link>
+
+
+        <joint name="${prefix}_x_axis_joint" type="prismatic">
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <parent link="${parent}" />
+            <child link="${prefix}_x_axis_link" />
+            <axis xyz="1 0 0" />
+            <limit effort="10000" lower="-1000.0" upper="1000.0" velocity="1000" />
+            <dynamics damping="${LINEAR_DAMP}" />
+        </joint>
+
+
+        <joint name="${prefix}_y_axis_joint" type="prismatic">
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <parent link="${prefix}_x_axis_link" />
+            <child link="${prefix}_y_axis_link" />
+            <axis xyz="0 1 0" />
+            <limit effort="10000" lower="-1000.0" upper="1000.0" velocity="1000" />
+            <dynamics damping="${LINEAR_DAMP}" />
+        </joint>
+
+        <joint name="${prefix}_z_axis_joint" type="continuous">
+            <parent link="${prefix}_y_axis_link"/>
+            <child link="${child}"/>
+            <origin xyz="0 0 0"/>
+            <axis xyz = "0 0 1"/>
+            <limit effort = "10000" velocity = "1000"/>
+            <dynamics damping="${ANGULAR_DAMP}" />
+        </joint>
+            
+        <transmission name="${prefix}_x_drive">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_x_axis_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_x_prismatic">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_y_drive">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_y_axis_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_y_prismatic">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${prefix}_z_drive">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_z_axis_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_z_revolute">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+
+    </xacro:macro>
+</robot>

@@ -1,0 +1,61 @@
+<launch>
+	<rosparam file="$(find kumara_description)/config/primitive_control.yaml" command="load"/>
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/kumara" 
+	args="r_arm_q1_torque_controller 
+	r_arm_q2_torque_controller 
+	r_arm_q3_torque_controller 
+	r_arm_q4_torque_controller 
+	r_arm_q5_torque_controller
+	base_x_velocity_controller
+	base_y_velocity_controller
+	base_z_velocity_controller
+	neck_x_position_controller 
+	neck_z_position_controller
+	neck_rx_position_controller 
+	neck_ry_position_controller
+	neck_rz_position_controller   
+	joint_state_controller"/>
+
+	<node name="base_parser" pkg="kumara_gazebo" type="base_parser.py"
+		respawn="false">
+	</node>
+
+	<node name="head_parser" pkg="kumara_gazebo" type="head_parser.py"
+		respawn="false">
+	</node>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+		respawn="false" output="screen">
+		<remap from="/joint_states" to="/kumara/joint_states" />
+	</node>
+	
+	<!-- these are the arguments you can pass this launch file, for example paused:=true -->
+	<arg name="paused" default="false"/>
+	<arg name="use_sim_time" default="true"/>
+	<arg name="gui" default="true"/>
+	<arg name="headless" default="false"/>
+	<arg name="debug" default="false"/>
+
+	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find kumara_gazebo)/worlds/kumara.world"/>
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="gui" value="$(arg gui)" />
+		<arg name="paused" value="$(arg paused)"/>
+		<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+		<arg name="headless" value="$(arg headless)"/>
+	</include>
+
+	<!-- Load the URDF into the ROS Parameter Server -->
+	<param name="robot_description"
+		command="$(find xacro)/xacro --inorder $(find kumara_description)/urdf/kumara.xacro" />
+
+	<!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+	<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+		args="-urdf -model kumara -param robot_description"/>
+
+	<!-- ros_control rrbot launch file -->
+	<!--include file="$(find rrbot_control)/launch/rrbot_control.launch" /-->
+
+</launch>

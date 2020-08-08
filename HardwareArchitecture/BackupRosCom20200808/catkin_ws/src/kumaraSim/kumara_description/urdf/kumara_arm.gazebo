@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot>
+
+	<gazebo reference="arm_base">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<gazebo reference="link_1">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<gazebo reference="link_2">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<gazebo reference="link_3">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<gazebo reference="link_4">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<gazebo reference="link_5">
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>		
+		<!-- <dampingFactor> 0.1 </dampingFactor> -->
+		<material>Gazebo/Grey</material>
+	</gazebo>
+	
+</robot>

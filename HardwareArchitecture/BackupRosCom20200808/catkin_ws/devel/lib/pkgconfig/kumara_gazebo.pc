@@ -1,0 +1,8 @@
+prefix=/home/xprize-vr2/catkin_ws/devel
+
+Name: kumara_gazebo
+Description: Description of kumara_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

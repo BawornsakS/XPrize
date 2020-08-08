@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot name="sonar" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:include filename="$(find kumara_description)/urdf/kumara_properties.xacro" />
+    
+    <xacro:macro name="sonar" params="prefix max_range min_range fov parent offset_from_parent rotate_from_parent visualize">
+        <joint name="${prefix}_sonar_joint" type="fixed">
+            <origin xyz="${offset_from_parent}" rpy="${rotate_from_parent}"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_sonar_link"/>
+        </joint>
+
+        
+        <link name="${prefix}_sonar_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://kumara_description/meshes/ultrasonicSensor.STL" scale="1 1 1"/>
+                </geometry>
+                <material name="grey"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.04" />
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial>
+        </link>
+
+        <gazebo reference="${prefix}_sonar_link">
+            <material>Gazebo/Grey</material>
+            <sensor type="ray" name="${prefix}_sonar">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>${visualize}</visualize>
+                <update_rate>50</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>10</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-${fov/2}</min_angle>
+                            <max_angle>${fov/2}</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>10</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-${fov/2}</min_angle>
+                            <max_angle>${fov/2}</max_angle>
+                        </vertical>
+                    </scan>
+                        <range>
+                            <min>${min_range}</min>
+                            <max>${max_range}</max>
+                            <resolution>0.02</resolution>
+                        </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <!-- Noise parameters based on published spec for Hokuyo laser
+                            achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                            stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                            reading. -->
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="gazebo_ros_${prefix}_sonar" filename="libgazebo_ros_range.so">
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>50</updateRate>
+                    <topicName>/kumara/${prefix}_sonar</topicName>
+                    <frameName>${prefix}_sonar_link</frameName>
+                    <radiation>ULTRASONIC</radiation>
+                    <fov>${fov}</fov>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+</robot>
