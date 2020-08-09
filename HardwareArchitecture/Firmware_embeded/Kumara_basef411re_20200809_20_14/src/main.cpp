@@ -1,3 +1,6 @@
+// โค้ดนี้ ใช้งานได้แล้ว ในการสั่งไดรฟ์  ** ล่าสุดดด แก้หมดแล้วววว 20.01 2020 8 9
+// การสั่งมุม เป็นแบบ 360 องศาหมุนได้จนครบรอบ
+//ยังไม่มี handshaking
 #include <mbed.h>
 #include "MPU9250.h"
 #include <math.h>
@@ -102,10 +105,10 @@ float kmfupdatelight(int16_t w_inKalman,float &p11,float &p12,float &p21,float &
 float pid_controller(float k_p,float k_i,float k_d,float setpoint,float feedback,float &pre_error,float &i_term,float &d_term){
   float pre_pwm;
   float new_error = setpoint - feedback;
-  if (new_error >= 180.00){ // 350 - 2 = 348 --> -12
+  if (new_error >= 360.00){ // 350 - 2 = 348 --> -12
       new_error -= 360.00;
   }
-  else if (new_error <= -180.00){ //2-358 = -356 --> +4
+  else if (new_error <= -360.00){ //2-358 = -356 --> +4
       new_error += 360.00;
   }
   if(k_i != 0.0){
@@ -137,13 +140,17 @@ int main()
     nh.subscribe(sub_base_control);
 
   #pragma endregion rosserial setup
-  driver.setWheel(2,D9,D10,PB_10); //BL
+  // driver.setWheel(2,D9,D10,PB_10); //BL
   
-  driver.setWheel(3,D12,D13,PA_7); // BR
+  // driver.setWheel(3,D12,D13,PA_7); // BR
   
-  driver.setWheel(1,D7,D8,PB_4); //FR
+  // driver.setWheel(1,D7,D8,PB_4); //FR
 
-  driver.setWheel(0,D4,D2,PB_3); //FL
+  // driver.setWheel(0,D4,D2,PB_3); //FL
+  driver.setWheel(0,D12,D13,D11); //FL
+  driver.setWheel(1,D10,D9,D6); //FR
+  driver.setWheel(2,D8,D7,D5); //BL
+  driver.setWheel(3,D2,D4,D3); // BR
 
   // driver.hwsetWheel(0,D3,D2,PB_6);//FL
   
@@ -222,13 +229,13 @@ int main()
       #pragma endregion get w and theta from kalman
       kumara_theta = Theta;
       // ang = pid_controller(0.23,0.0,1.8,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      ang = pid_controller(0.0975,0.0000,2.295,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      // ang = pid_controller(0.19,0.000,0.0,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
+      // ang = pid_controller(0.0975,0.0000,2.295,kumara_theta,orientation,pre_error,i_term,d_term); //useable but can fix
+      ang = pid_controller(0.075,0.000,2.7,kumara_theta,(orientation*2),pre_error,i_term,d_term); 
       /* move and Rotate */
       Vx_Front = (Vx * cos((ang * PI)/180)) - (Vy * sin((ang*PI)/180)); 
       Vy_Side  = (Vx * sin((ang * PI)/180)) + (Vy * cos((ang * PI)/180));
       if (abs(Theta - orientation) <= 1.0f){
-        driver.drive(0,0,0,speed_satuated);
+        driver.drive(Vx_Front,Vy_Side,0,speed_satuated);
       }
       else{
         driver.drive(Vx_Front,Vy_Side,ang,speed_satuated);
@@ -239,9 +246,11 @@ int main()
       
     // ttl.printf("%.2f\t%.2f\t%.2f\n",w_inKalman,w_outKalman,orientation);
     // ttl.printf("%.2f\t%.2f\t%.2f\t: %.2f\t%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
-     ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
+    //  ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
+    ttl.printf("w:%.2f\tthe:%.2f\tore:%.2f\tvx:%.2f\tvy:%.2f",w_outKalman,Theta,orientation,Vx,Vy);
+    // ttl.printf("%.2f\t%.2f",Theta,orientation);
     // ttl.printf("%.2f\t%.2f",Vx,Vy);
-    // ttl.printf("\n");
+    ttl.printf("\n");
     kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
     kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
     kumara_feedback_pose_for_odom.data[2] = 180.0; // yaw.robot

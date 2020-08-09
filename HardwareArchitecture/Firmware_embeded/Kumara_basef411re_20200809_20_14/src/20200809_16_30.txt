@@ -25,7 +25,7 @@ bool base_control_flag;
   float w_outKalman = 0; 
   float orientation =0;
   float Q,R;
-  float sigma_a = 8.5;
+  float sigma_a = 8.50;
   float sigma_w = 1.0; 
   float x1_in = 0;
   float x2_in = 0;
@@ -43,6 +43,7 @@ bool base_control_flag;
   float i_term =0;
   float d_term =0;
 #pragma endregion pid
+// int radius = 51;//mm
 // int Velocity = 0;
 float ang =0;
 //int16_t Wz =0;
@@ -137,15 +138,10 @@ int main()
     nh.subscribe(sub_base_control);
 
   #pragma endregion rosserial setup
-  driver.setWheel(2,D9,D10,PB_10); //BL
-  
-  driver.setWheel(3,D12,D13,PA_7); // BR
-  
-  driver.setWheel(1,D7,D8,PB_4); //FR
-
-  driver.setWheel(0,D4,D2,PB_3); //FL
-
-  // driver.hwsetWheel(0,D3,D2,PB_6);//FL
+  driver.setWheel(0,D12,D13,D11); //FL
+  driver.setWheel(1,D10,D9,D6); //FR
+  driver.setWheel(2,D8,D7,D5); //BL
+  driver.setWheel(3,D2,D4,D3); // BR
   
   driver.drive(0.0f,0.0f,0.0f,speed_satuated);
   
@@ -188,8 +184,8 @@ int main()
   {
     // ttl.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n", Vx,Vy,driver.value[0],driver.value[1],driver.value[2],driver.value[3]);
     // imu.readimu();
-    // if (bluetooth.readable()){
-    //   char temp = bluetooth.getc();
+    // if (ttl.readable()){
+    //   char temp = ttl.getc();
     //   switch(temp)
     //   {
     //     case 's':
@@ -221,14 +217,13 @@ int main()
       }
       #pragma endregion get w and theta from kalman
       kumara_theta = Theta;
-      // ang = pid_controller(0.23,0.0,1.8,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      ang = pid_controller(0.0975,0.0000,2.295,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      // ang = pid_controller(0.19,0.000,0.0,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
+      //ang = pid_controller(0.075,0.000,1.92,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
+      ang = pid_controller(0.05,0.000,1.15,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
       /* move and Rotate */
       Vx_Front = (Vx * cos((ang * PI)/180)) - (Vy * sin((ang*PI)/180)); 
       Vy_Side  = (Vx * sin((ang * PI)/180)) + (Vy * cos((ang * PI)/180));
-      if (abs(Theta - orientation) <= 1.0f){
-        driver.drive(0,0,0,speed_satuated);
+      if (abs(Theta - orientation) <= 3.0f){
+        driver.drive(Vx_Front,Vy_Side,0,speed_satuated);
       }
       else{
         driver.drive(Vx_Front,Vy_Side,ang,speed_satuated);
@@ -238,10 +233,12 @@ int main()
     
       
     // ttl.printf("%.2f\t%.2f\t%.2f\n",w_inKalman,w_outKalman,orientation);
-    // ttl.printf("%.2f\t%.2f\t%.2f\t: %.2f\t%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
-     ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
+    // ttl.printf("w:%.2f\tthe:%.2f\toren:%.2f\tvx:%.2f\tvy:%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
+    // ttl.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f",Vx,Vy,driver.value[0],driver.value[1],driver.value[2],driver.value[3]);
+    //  ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
+    ttl.printf("%.2f\t%.2f\t",Theta,orientation);
     // ttl.printf("%.2f\t%.2f",Vx,Vy);
-    // ttl.printf("\n");
+    ttl.printf("\n");
     kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
     kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
     kumara_feedback_pose_for_odom.data[2] = 180.0; // yaw.robot
