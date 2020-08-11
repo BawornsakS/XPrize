@@ -1,5 +1,7 @@
-// โค้ดนี้ ใช้งานได้แล้ว ในการสั่งไดรฟ์  ** ล่าสุดดด แก้หมดแล้วววว 20.01 2020 8 9
-// การสั่งมุม เป็นแบบ 360 องศาหมุนได้จนครบรอบ
+// 2020 08 11 
+// use #define for optimize 
+//delete some unuse comments
+// CON_T  increse to 0.020 and change timer of imu to 0.018
 //ยังไม่มี handshaking
 #include <mbed.h>
 #include "MPU9250.h"
@@ -12,24 +14,23 @@ using namespace baseDrive;
 
 #define PI 3.14159265
 #define G 9.782970341
-#define CON_T 0.025
-// #define reFIFO_T 1.0
+#define CON_T 0.01
+#define speed_satuated 0.8
 Serial ttl(PC_6, PA_12 ,9600);
 Driver driver;
 MPU9250 imu;
 // Timer timer_slow;
 Timer IMU_timer;
 Ticker base_In;
-// Ticker reFIFO_In;
 bool base_control_flag;
 #pragma region Kalman  
   float w_update =0;
   float w_inKalman = 0;
   float w_outKalman = 0; 
   float orientation =0;
-  float Q,R;
-  float sigma_a = 8.5;
-  float sigma_w = 1.0; 
+  float sigma_a =8.5;
+  float sigma_w =1.0;
+  float Q,R; 
   float x1_in = 0;
   float x2_in = 0;
   float x1 = 0; // orientation
@@ -46,35 +47,28 @@ bool base_control_flag;
   float i_term =0;
   float d_term =0;
 #pragma endregion pid
-// int Velocity = 0;
 float ang =0;
-//int16_t Wz =0;
 float Vx_Front =0;
 float Vy_Side =0;
-float speed_satuated=0.8f;
 float Vx,Vy,Vz,Theta,Qx,Qy,Qz,Qw;
-float kumara_theta=0;
 ros::NodeHandle nh;
 std_msgs::Float32MultiArray kumara_feedback_pose_for_odom;
-
+std_msgs::Float32MultiArray kumara_base_debug;
 void twist_pose_callback(const std_msgs::Float32MultiArray& twist_pose_msg)
 {
   Vx    = twist_pose_msg.data[0];
   Vy    = twist_pose_msg.data[1];
   Theta = twist_pose_msg.data[2];
 }
-ros::Subscriber<std_msgs::Float32MultiArray> sub_base_control("kumara/base/control",&twist_pose_callback);
-ros::Publisher odom("kumara/feedback/pose_for_odom",&kumara_feedback_pose_for_odom);
+
+ros::Subscriber<std_msgs::Float32MultiArray> sub_base_control("/kumara/base/control",&twist_pose_callback);
+ros::Publisher odom("/kumara/feedback/pose_for_odom",&kumara_feedback_pose_for_odom);
+ros::Publisher debug_msg("/kumara_base_debug",&kumara_base_debug);
 
 float set_odom()
 {
   return 0;
 }
-
-// void GO(float Vx=0.00,float Vy=0.00,float ang=0.00)
-// {
-//     driver.drive(Vx,Vy,ang,speed_satuated);
-// } 
 
 void task_sent() {
   imu.readimu();
@@ -120,15 +114,30 @@ float pid_controller(float k_p,float k_i,float k_d,float setpoint,float feedback
   return pre_pwm;
 } 
 
-
 void base_control()
 {
- //อ่าน imu
-//  imu.readGyroData();
-//  task_sent();
 base_control_flag = true;
-// IMU_timer.start();
 }
+
+void debuger(float w_outKalman, float Theta, float orientation, float Vx, float Vy, float PWM_Fl, float PWM_FR, float PWM_Bl, float PWM_BR)
+    {
+      kumara_base_debug.data[0] = w_outKalman;
+      kumara_base_debug.data[1] = Theta;
+      kumara_base_debug.data[2] = orientation;
+      kumara_base_debug.data[3] = Vx;
+      kumara_base_debug.data[4] = Vy;
+      kumara_base_debug.data[5] = PWM_Fl;
+      kumara_base_debug.data[6] = PWM_FR;
+      kumara_base_debug.data[7] = PWM_Bl;
+      kumara_base_debug.data[8] = PWM_BR;
+    }
+
+void pose_for_odom(float orientation)
+  {
+    kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
+    kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
+    kumara_feedback_pose_for_odom.data[2] = orientation; // yaw.robot
+  }
 
 int main()
 { 
@@ -137,9 +146,11 @@ int main()
     nh.getHardware()->setBaud(512000);
     nh.initNode();
     nh.advertise(odom);
-    nh.subscribe(sub_base_control);
-
-  #pragma endregion rosserial setup
+    // nh.advertise(debug_msg);
+    nh.subscribe(sub_base_control);  
+    kumara_feedback_pose_for_odom.data_length = 3;
+    kumara_base_debug.data_length = 9;
+   #pragma endregion rosserial setup
   // driver.setWheel(2,D9,D10,PB_10); //BL
   
   // driver.setWheel(3,D12,D13,PA_7); // BR
@@ -190,7 +201,8 @@ int main()
   base_In.attach(&base_control,CON_T);
   // reFIFO_In.attach(&reFIFO_trig,reFIFO_T);
   #pragma endregion main_setup
-  kumara_feedback_pose_for_odom.data_length = 3;
+  
+
   while (1)
   {
     // ttl.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n", Vx,Vy,driver.value[0],driver.value[1],driver.value[2],driver.value[3]);
@@ -209,7 +221,7 @@ int main()
     // }
     
     IMU_timer.start();
-    if (IMU_timer.read()>=0.025){
+    if (IMU_timer.read()>=0.018){
       w_inKalman = imu.readz();
       IMU_timer.reset();
     }
@@ -227,10 +239,9 @@ int main()
           orientation = 0.0;
       }
       #pragma endregion get w and theta from kalman
-      kumara_theta = Theta;
-      // ang = pid_controller(0.23,0.0,1.8,kumara_theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      // ang = pid_controller(0.0975,0.0000,2.295,kumara_theta,orientation,pre_error,i_term,d_term); //useable but can fix
-      ang = pid_controller(0.075,0.000,2.7,kumara_theta,(orientation*2),pre_error,i_term,d_term); 
+      // ang = pid_controller(0.23,0.0,1.8,Theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
+      // ang = pid_controller(0.0975,0.0000,2.295,Theta,orientation,pre_error,i_term,d_term); //useable but can fix
+      ang = pid_controller(0.075,0.000,2.7,Theta,(orientation*2),pre_error,i_term,d_term); 
       /* move and Rotate */
       Vx_Front = (Vx * cos((ang * PI)/180)) - (Vy * sin((ang*PI)/180)); 
       Vy_Side  = (Vx * sin((ang * PI)/180)) + (Vy * cos((ang * PI)/180));
@@ -244,16 +255,23 @@ int main()
     }
     
       
-    // ttl.printf("%.2f\t%.2f\t%.2f\n",w_inKalman,w_outKalman,orientation);
-    // ttl.printf("%.2f\t%.2f\t%.2f\t: %.2f\t%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
-    //  ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
+    ttl.printf("%.2f\t%.2f\t%.2f\n",w_inKalman,w_outKalman,orientation);
+    ttl.printf("%.2f\t%.2f\t%.2f\t: %.2f\t%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
+    ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
     ttl.printf("w:%.2f\tthe:%.2f\tore:%.2f\tvx:%.2f\tvy:%.2f",w_outKalman,Theta,orientation,Vx,Vy);
-    // ttl.printf("%.2f\t%.2f",Theta,orientation);
+    ttl.printf("%.2f\t%.2f",Theta,orientation);
     // ttl.printf("%.2f\t%.2f",Vx,Vy);
     ttl.printf("\n");
+
+    // pose_for_odom(orientation);
+    // debuger(w_outKalman, Theta, orientation, Vx, Vy, driver.value[0], driver.value[1], driver.value[2], driver.value[3]);
     kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
     kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
-    kumara_feedback_pose_for_odom.data[2] = 180.0; // yaw.robot
+    kumara_feedback_pose_for_odom.data[2] = orientation; // yaw.robot
+    // kumara_base_debug.data[0] = 1.0;
+    // kumara_base_debug.data[1] = 1.45646;
+    // kumara_base_debug.data[2] = 5.15848944894984;
+    // debug_msg.publish(&kumara_base_debug);
     odom.publish(&kumara_feedback_pose_for_odom);
     nh.spinOnce();
     wait_ms(10);
