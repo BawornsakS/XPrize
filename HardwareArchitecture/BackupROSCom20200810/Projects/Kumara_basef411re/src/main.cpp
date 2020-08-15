@@ -9,12 +9,13 @@
 #include <Wheel.h>
 #include <ros.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Float32.h>
 using namespace baseDrive;
 
 #define PI 3.14159265
 #define G 9.782970341
-#define CON_T 0.01
+#define CON_T 0.001
 #define speed_satuated 0.8
 Serial ttl(PC_6, PA_12 ,9600);
 Driver driver;
@@ -27,7 +28,7 @@ bool base_control_flag;
   float w_update =0;
   float w_inKalman = 0;
   float w_outKalman = 0; 
-  float orientation =0;
+  float kumara_base_yaw =0;
   float sigma_a =8.5;
   float sigma_w =1.0;
   float Q,R; 
@@ -50,20 +51,23 @@ bool base_control_flag;
 float ang =0;
 float Vx_Front =0;
 float Vy_Side =0;
-float Vx,Vy,Vz,Theta,Qx,Qy,Qz,Qw;
+float Vx,Vy,Vz,Theta;
+float data_debug[9];
+float data_odom[3];
+
 ros::NodeHandle nh;
-std_msgs::Float32MultiArray kumara_feedback_pose_for_odom;
+std_msgs::Float32MultiArray kumara_feedback_base_pose;
 std_msgs::Float32MultiArray kumara_base_debug;
-void twist_pose_callback(const std_msgs::Float32MultiArray& twist_pose_msg)
+void twist_pose_callback(const std_msgs::Int16MultiArray& twist_pose_msg)
 {
   Vx    = twist_pose_msg.data[0];
   Vy    = twist_pose_msg.data[1];
   Theta = twist_pose_msg.data[2];
 }
 
-ros::Subscriber<std_msgs::Float32MultiArray> sub_base_control("/kumara/base/control",&twist_pose_callback);
-ros::Publisher odom("/kumara/feedback/pose_for_odom",&kumara_feedback_pose_for_odom);
-ros::Publisher debug_msg("/kumara_base_debug",&kumara_base_debug);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_base_control("/kumara/base/control",&twist_pose_callback);
+ros::Publisher odom("/kumara/feedback/base/pose",&kumara_feedback_base_pose);
+ros::Publisher debug_msg("/kumara/feedback/base/debug",&kumara_base_debug);
 
 float set_odom()
 {
@@ -119,11 +123,11 @@ void base_control()
 base_control_flag = true;
 }
 
-void debuger(float w_outKalman, float Theta, float orientation, float Vx, float Vy, float PWM_Fl, float PWM_FR, float PWM_Bl, float PWM_BR)
+void debuger(float w_outKalman, float Theta, float kumara_base_yaw, float Vx, float Vy, float PWM_Fl, float PWM_FR, float PWM_Bl, float PWM_BR)
     {
       kumara_base_debug.data[0] = w_outKalman;
       kumara_base_debug.data[1] = Theta;
-      kumara_base_debug.data[2] = orientation;
+      kumara_base_debug.data[2] = kumara_base_yaw;
       kumara_base_debug.data[3] = Vx;
       kumara_base_debug.data[4] = Vy;
       kumara_base_debug.data[5] = PWM_Fl;
@@ -132,11 +136,11 @@ void debuger(float w_outKalman, float Theta, float orientation, float Vx, float 
       kumara_base_debug.data[8] = PWM_BR;
     }
 
-void pose_for_odom(float orientation)
+void kumara_feedback_base_pose_update_variable(float kumara_base_yaw)
   {
-    kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
-    kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
-    kumara_feedback_pose_for_odom.data[2] = orientation; // yaw.robot
+    kumara_feedback_base_pose.data[0] = 0.0; // pose.x
+    kumara_feedback_base_pose.data[1] = 0.0; // pose.y
+    kumara_feedback_base_pose.data[2] = kumara_base_yaw; // yaw.robot
   }
 
 int main()
@@ -145,25 +149,19 @@ int main()
   #pragma region rosserial setup
     nh.getHardware()->setBaud(512000);
     nh.initNode();
-    nh.advertise(odom);
-    // nh.advertise(debug_msg);
     nh.subscribe(sub_base_control);  
-    kumara_feedback_pose_for_odom.data_length = 3;
-    kumara_base_debug.data_length = 9;
+    kumara_feedback_base_pose.data_length = 3;
+    kumara_feedback_base_pose.data = data_odom;
+    kumara_base_debug.data_length =9;
+    kumara_base_debug.data = data_debug;
+    nh.advertise(odom);
+    nh.advertise(debug_msg);
    #pragma endregion rosserial setup
-  // driver.setWheel(2,D9,D10,PB_10); //BL
-  
-  // driver.setWheel(3,D12,D13,PA_7); // BR
-  
-  // driver.setWheel(1,D7,D8,PB_4); //FR
 
-  // driver.setWheel(0,D4,D2,PB_3); //FL
   driver.setWheel(0,D12,D13,D11); //FL
   driver.setWheel(1,D10,D9,D6); //FR
   driver.setWheel(2,D8,D7,D5); //BL
   driver.setWheel(3,D2,D4,D3); // BR
-
-  // driver.hwsetWheel(0,D3,D2,PB_6);//FL
   
   driver.drive(0.0f,0.0f,0.0f,speed_satuated);
   
@@ -172,7 +170,6 @@ int main()
   uint8_t whoami = imu.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
   ttl.printf("I AM 0x%x\n\r", whoami);
   
-  // ttl.printf("Hello");
   
   if (whoami == 0x71) // WHO_AM_I should always be 0x73
   {
@@ -199,26 +196,11 @@ int main()
   // timer_slow.start();
   // IMU_timer.start();
   base_In.attach(&base_control,CON_T);
-  // reFIFO_In.attach(&reFIFO_trig,reFIFO_T);
   #pragma endregion main_setup
   
 
   while (1)
   {
-    // ttl.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n", Vx,Vy,driver.value[0],driver.value[1],driver.value[2],driver.value[3]);
-    // imu.readimu();
-    // if (bluetooth.readable()){
-    //   char temp = bluetooth.getc();
-    //   switch(temp)
-    //   {
-    //     case 's':
-    //     Vx = -1.00;
-    //     Vy = 0.00;
-    //     break;
-    //     default:
-    //       break;
-    //   }
-    // }
     
     IMU_timer.start();
     if (IMU_timer.read()>=0.018){
@@ -233,19 +215,19 @@ int main()
       x1_in = x1;
       x2_in = x2;
       w_outKalman = kmfupdatelight(w_inKalman,p11,p12,p21,p22,x1_in,x2_in,sigma_a,sigma_w,x1,x2);
-      orientation = x1;
-      if (orientation >= 360.00 || orientation <= -360.00){
+      kumara_base_yaw = x1;
+      if (kumara_base_yaw >= 360.00 || kumara_base_yaw <= -360.00){
           x1 = 0.0;
-          orientation = 0.0;
+          kumara_base_yaw = 0.0;
       }
       #pragma endregion get w and theta from kalman
-      // ang = pid_controller(0.23,0.0,1.8,Theta,orientation,pre_error,i_term,d_term); // Infact this is orientation
-      // ang = pid_controller(0.0975,0.0000,2.295,Theta,orientation,pre_error,i_term,d_term); //useable but can fix
-      ang = pid_controller(0.075,0.000,2.7,Theta,(orientation*2),pre_error,i_term,d_term); 
+      // ang = pid_controller(0.23,0.0,1.8,Theta,kumara_base_yaw,pre_error,i_term,d_term); // Infact this is kumara_base_yaw
+      // ang = pid_controller(0.0975,0.0000,2.295,Theta,kumara_base_yaw,pre_error,i_term,d_term); //useable but can fix
+      ang = pid_controller(0.075,0.000,2.7,Theta,(kumara_base_yaw*2),pre_error,i_term,d_term); 
       /* move and Rotate */
       Vx_Front = (Vx * cos((ang * PI)/180)) - (Vy * sin((ang*PI)/180)); 
       Vy_Side  = (Vx * sin((ang * PI)/180)) + (Vy * cos((ang * PI)/180));
-      if (abs(Theta - orientation) <= 1.0f){
+      if (abs(Theta - kumara_base_yaw) <= 1.0f){
         driver.drive(Vx_Front,Vy_Side,0,speed_satuated);
       }
       else{
@@ -254,39 +236,13 @@ int main()
       base_control_flag =false;
     }
     
-      
-    ttl.printf("%.2f\t%.2f\t%.2f\n",w_inKalman,w_outKalman,orientation);
-    ttl.printf("%.2f\t%.2f\t%.2f\t: %.2f\t%.2f\t \n",w_outKalman,Theta,orientation,Vx,Vy);
-    ttl.printf("%.2f\t%.2f\t%.2f\n",Theta,orientation,abs(Theta - orientation));
-    ttl.printf("w:%.2f\tthe:%.2f\tore:%.2f\tvx:%.2f\tvy:%.2f",w_outKalman,Theta,orientation,Vx,Vy);
-    ttl.printf("%.2f\t%.2f",Theta,orientation);
-    // ttl.printf("%.2f\t%.2f",Vx,Vy);
-    ttl.printf("\n");
-
-    // pose_for_odom(orientation);
-    // debuger(w_outKalman, Theta, orientation, Vx, Vy, driver.value[0], driver.value[1], driver.value[2], driver.value[3]);
-    kumara_feedback_pose_for_odom.data[0] = 0.0; // pose.x
-    kumara_feedback_pose_for_odom.data[1] = 0.0; // pose.y
-    kumara_feedback_pose_for_odom.data[2] = orientation; // yaw.robot
-    // kumara_base_debug.data[0] = 1.0;
-    // kumara_base_debug.data[1] = 1.45646;
-    // kumara_base_debug.data[2] = 5.15848944894984;
-    // debug_msg.publish(&kumara_base_debug);
-    odom.publish(&kumara_feedback_pose_for_odom);
+    kumara_feedback_base_pose_update_variable(kumara_base_yaw);
+    odom.publish(&kumara_feedback_base_pose);
+    debuger(w_outKalman, Theta, kumara_base_yaw, Vx, Vy, driver.value[0], driver.value[1], driver.value[2], driver.value[3]);
+    debug_msg.publish(&kumara_base_debug);
     nh.spinOnce();
     wait_ms(10);
 
-
-    // if (IMU_timer.read()>=0.1){
-    //   // task_sent();
-      
-    //   double eiei_output2 = timer_slow.read();
-    //   timer_slow.reset();
-    //   // ttl.printf("ax:%f\tay:%f\taz:%f\tgx:%f\tgy:%f\tgz:%f\tmx:%f\tmy:%f\tmz:%f\t\n",imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz);
-    //   // ttl.printf("\t\t\t time: %f\n",eiei_output2);
-    //   IMU_timer.reset();
-    // }
-    // timer_slow.reset();
   }
   }
   
