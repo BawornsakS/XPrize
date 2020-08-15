@@ -38,8 +38,8 @@ def timer_callback(event):
 
 def listener():
     rospy.init_node('mbed_to_odom', anonymous=False)
-    rospy.Subscriber('kumara/feedback/pose_for_odom', Float32MultiArray, callback)
-    timer = rospy.Timer(rospy.Duration(0.1), timer_callback)
+    rospy.Subscriber('/kumara/feedback/base/pose', Float32MultiArray, callback)
+    timer = rospy.Timer(rospy.Duration(0.05), timer_callback)
     rospy.spin()    
     timer.shutdown()
 
