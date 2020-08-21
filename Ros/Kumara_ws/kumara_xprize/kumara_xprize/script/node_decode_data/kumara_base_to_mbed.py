@@ -16,14 +16,15 @@ def twist_callback(twist_data):
     global started, last_data
     last_data.data[0] = twist_data.linear.x
     last_data.data[1] = twist_data.linear.y
+    last_data.data[2] = twist_data.angular.z
     if (not started):
         started = True
 
-def yaw_callback(yaw_data):
-    global started, last_data
-    last_data.data[2] = int(degrees(yaw_data.data))
-    if (not started):
-        started = True
+#def yaw_callback(yaw_data):
+    #global started, last_data
+    #last_data.data[2] = int(degrees(yaw_data.data))
+    #if (not started):
+        #started = True
 
 def timer_callback(event):
     global started, pub, last_data
@@ -33,7 +34,7 @@ def timer_callback(event):
 
 def listener():
     rospy.init_node('basepose_to_mbed', anonymous=False)
-    rospy.Subscriber('/kumara/base/yaw', Float32, yaw_callback)
+    #rospy.Subscriber('/kumara/base/yaw', Float32, yaw_callback)
     rospy.Subscriber('/kumara/base/cmd_vel', Twist, twist_callback)
     timer = rospy.Timer(rospy.Duration(0.015), timer_callback) #Hz change 0.1 na 0.1 = 10hz
     rospy.spin()
