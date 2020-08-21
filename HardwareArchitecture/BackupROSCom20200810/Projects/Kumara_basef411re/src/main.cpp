@@ -225,8 +225,8 @@ int main()
       // ang = pid_controller(0.0975,0.0000,2.295,Theta,kumara_base_yaw,pre_error,i_term,d_term); //useable but can fix
       ang = pid_controller(0.075,0.000,2.7,Theta,(kumara_base_yaw*2),pre_error,i_term,d_term); 
       /* move and Rotate */
-      Vx_Front = (Vx * cos((ang * PI)/180)) - (Vy * sin((ang*PI)/180)); 
-      Vy_Side  = (Vx * sin((ang * PI)/180)) + (Vy * cos((ang * PI)/180));
+      Vx_Front = ((Vx/100.00) * cos((ang * PI)/180)) - ((Vy/100.00) * sin((ang * PI)/180)); 
+      Vy_Side  = ((Vx/100.00) * sin((ang * PI)/180)) + ((Vy/100.00) * cos((ang * PI)/180));
       if (abs(Theta - kumara_base_yaw) <= 1.0f){
         driver.drive(Vx_Front,Vy_Side,0,speed_satuated);
       }

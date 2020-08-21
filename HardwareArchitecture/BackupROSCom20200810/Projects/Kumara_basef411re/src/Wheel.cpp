@@ -13,6 +13,7 @@ Wheel::Wheel(PinName ina, PinName inb, PinName pwm){
     outa = new DigitalOut(ina);
     outb = new DigitalOut(inb);
     pwmf = new PwmOut(pwm);
+    // pwmf->period(0.0013);
     // pwm = new PwmOut(in_pwm);
 };
 
